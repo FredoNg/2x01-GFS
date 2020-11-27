@@ -27,6 +27,47 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/shopfilter.css" />
     </head>
+    <style>
+        .container {
+          position: relative;
+          width: 50%;
+        }
+
+        .image {
+          opacity: 1;
+          display: block;
+          width: 100%;
+          height: auto;
+          transition: .5s ease;
+          backface-visibility: hidden;
+        }
+
+        .middle {
+          transition: .5s ease;
+          opacity: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          text-align: center;
+        }
+
+        .container:hover .image {
+          opacity: 0.3;
+        }
+
+        .container:hover .middle {
+          opacity: 1;
+        }
+
+        .text {
+          background-color: #4CAF50;
+          color: white;
+          font-size: 16px;
+          padding: 16px 32px;
+        }
+    </style>
     <body> 
         <main>
 
@@ -73,13 +114,12 @@
                 </div>
                 <div class="col-xs-6  col-md-3 margin-top-bot" >
                     <h3>Student/Lecture Login</h3>
-                        <form style="border:1px; ">
-                            <input type="text" style="margin-left: 0px; border:1px solid #ccc; " pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" class="form-control" name="email" id="email" placeholder="Enter Email" required aria-label="email login"><br>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required aria-label="Enter password"><br>
-
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
- 
+                    <div class="container">
+                        <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%">
+                        <div class="middle">
+                          <div class="text">John Doe</div>
+                        </div>
+                    </div
                 </div>
             </div>
             <!-- End Shop Now -->
@@ -114,44 +154,7 @@
                 <div class="row">
                     <div class=" col-md-8 col-md-offset-2" id="trending">
                         <h2>Trending Products</h2>
-                        <hr>
-
-
-
-
-                        <!--database connection-->
-                        <?php
-                        $servername = "161.117.122.252";
-                        $username = "p1_5";
-                        $password = "96rjYQmInJ";
-                        $dbname = "p1_5";
-                        $link = new mysqli($servername, $username, $password, $dbname);
-                        if ($link === false) {
-                            die("ERROR: Could not connect. " . mysqli_connect_error());
-                        }
-                        ?>
-                        <!--Top sells/Trending Products-->
-                        <?php
-                        $sql = "SELECT * FROM p1_5.products ORDER BY total_qt asc LIMIT 3;";
-
-
-                        if ($result = mysqli_query($link, $sql)) {
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_array($result)) {
-                                    $prod_id = $row['product_id'];
-                                    if ($prod_id < 10) {
-                                        $prod_id = "0" . $prod_id;
-                                    }
-                                    echo'<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-0" >';
-                                    echo'<a href="product.php?id=' . $prod_id . '">';
-                                    echo'<img src="images/products/product-' . $prod_id . '/1.jpeg" alt="' . $row['product_name'] . '" class="img-responsive"></a>';
-                                    echo'<p>' . $row['product_name'] . '</p>';
-                                    echo'<p>' . $row['product_price'] . '</p>';
-                                    echo'</div>';
-                                }
-                            }
-                        }
-                        ?>         
+                        <hr>        
                     </div>
                 </div>
             </div>
