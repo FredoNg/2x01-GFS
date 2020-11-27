@@ -47,7 +47,14 @@ else {
 DBstuff();
 
 if ($success) {
-    header('Location: lectPage.php');
+    
+    if ($_SESSION['type'] == "Lecturer")
+        header('Location: lectPage.php');
+    
+    if ($_SESSION['type'] == "Student")
+        header('Location: studentHomePage.php');
+        
+    
     }    
 
 else {
