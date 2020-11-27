@@ -38,7 +38,7 @@ require_once('../protected/config.php');
                 <hr class="us">
                 <div class="col-xs-6  col-md-3 margin-top-bot" >
                     <h3>Student/Lecturer Login</h3>
-                        <form action="process_login.php" method="post" style="border:1px; ">
+                        <form style="border:1px; ">
                             Enter Email:
                             <input type="text" style="margin-left: 0px; border:1px solid #ccc; " pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" class="form-control" name="email" id="email" placeholder="Enter Email" required aria-label="email login"><br>
                             Enter Password:
