@@ -30,7 +30,7 @@
     <style>
         .container {
           position: relative;
-          width: 50%;
+          width: 100%;
         }
 
         .image {
@@ -39,12 +39,13 @@
           width: 100%;
           height: auto;
           transition: .5s ease;
-          backface-visibility: hidden;
+          backface-visibility: visible;
+
         }
 
         .middle {
           transition: .5s ease;
-          opacity: 0;
+          opacity: 1;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -54,7 +55,7 @@
         }
 
         .container:hover .image {
-          opacity: 0.3;
+          opacity: 1;
         }
 
         .container:hover .middle {
@@ -62,7 +63,6 @@
         }
 
         .text {
-          background-color: #4CAF50;
           color: white;
           font-size: 16px;
           padding: 16px 32px;
@@ -105,21 +105,24 @@
 
             <!--Shop Now-->
             <div class="container-fluid" id="shopnow">
-                <div class="col-xs-6 col-md-4 col-md-offset-2" id='season'>
-                    <h2>October Series Collections</h2>
+                <div class="col-xs-6 col-md-2 col-md-offset-2" id='season'>
+                    <h2>List of Modules</h2>
                     <hr>
-                    <p>Get Prepped up for Autumn with our Korean</p>
-                    <p>inspired Autumn fashion in our</p>
-                    <p>October Series Collections</p>
+                    <p>English</p>
+
                 </div>
-                <div class="col-xs-6  col-md-3 margin-top-bot" >
-                    <h3>Student/Lecture Login</h3>
+                <div class="col-xs-6  col-md-5 margin-top-bot" >
+                    <h3>Student Name</h3>
                     <div class="container">
-                        <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%">
-                        <div class="middle">
-                          <div class="text">John Doe</div>
-                        </div>
-                    </div
+                        <img src="images/Student/Male.jpg" alt="Avatar" class="image" style="width:100%">
+                            <div class="middle">
+                                <div class="text">
+                                    <img class="text" src="images/Student/1.gif" alt=""/>
+                                </div>
+                            </div>
+                        </div
+                    </div>
+                    
                 </div>
             </div>
             <!-- End Shop Now -->
