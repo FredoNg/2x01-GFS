@@ -18,6 +18,7 @@ include 'nav.inc.php';
 $success = true;
 $listoferror = array();
 
+
 if (empty($_POST["email"]))
 {
     array_push($listoferror, "Email is required");
@@ -46,7 +47,7 @@ else {
 DBstuff();
 
 if ($success) {
-    header('Location: shop.php');
+    header('Location: lectPage.php');
     }    
 
 else {
@@ -67,28 +68,28 @@ function DBstuff() {
     global $email, $password, $listoferror, $success;
     //Create connection
     $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-
+    
     //Check connection
     if ($conn->connect_error) {
         array_push($listoferror, "Connection failed: " . $conn->connect_error);
         $success = false;
     }
     else {
-        $sql = "SELECT * FROM users_information WHERE email = '$email'";
+        $sql = "SELECT * FROM Users WHERE uEmail = '$email'";
         
         //Execute the query
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $password = hash('sha512', $password);
-            if ($password == $row["password"]) {
+            //$password = hash('sha512', $password); NO HASHING FOR 2101
+            if ($password == $row["uPassword"]) {
                 $success = true;
-                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['user_id'] = $row['uID'];
                 //for profile page
-                $_SESSION['fname'] = $row['fname'];
-                $_SESSION['lname'] = $row['lname'];
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['question'] = $row['question'];
+                $_SESSION['name'] = $row['uName'];
+                $_SESSION['type'] = $row['user_type'];
+                $_SESSION['email'] = $row['uEmail'];
+                
             }
             else {
                 echo "<hr>";
