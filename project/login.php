@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <?php
 require_once('../protected/config.php');
+
+    define('DB_SERVER', 'rm-gs595dd89hu8175hl6o.mysql.singapore.rds.aliyuncs.com');
+    define('DB_USERNAME', 'ict1902664clj');
+    define('DB_PASSWORD', 'JLC4662091');
+    define('DB_DATABASE', 'sql1902664clj');
+    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+   
+    $sql = "SELECT * FROM Users";
+    $result = mysqli_query($db,$sql);
+    
+
 ?>
 <html lang="en">
     <head>
@@ -29,6 +40,12 @@ require_once('../protected/config.php');
             <br>
             <br>
             <div class="container-fluid">
+                <h1>
+                    <?php while ($row = mysqli_fetch_array($result)) 
+                    {
+                    echo $row['uEmail'];
+                    }?>"</h1>
+    
                 <h1>Member Login</h1>
                 <hr class="us">
                 <p>For new members, please click on Sign Up to create a new account!</p>
@@ -38,9 +55,8 @@ require_once('../protected/config.php');
                     <hr class="us">
                     Password: <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required aria-label="Enter password"><br>
                     <hr class="us">
-                    <small>Lost your password? Click <a href="forgetpw.php">here</a></small><br>
+                    <td>result</td>
                     <button type="submit" class="btn btn-default">Submit</button>
-                    <a href="register.php" class="btn btn-default" role="button">Sign up</a>
                 </form>
 
             </div>
