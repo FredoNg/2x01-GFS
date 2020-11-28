@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <!-- Database connection-->
 <?php
-//require_once('../protected/config.php');
-//$conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-//if ($conn->connect_error) {
-//    $errorMsg = "Connection failed: " . $conn->connect_error;
-//    $success = false;
-//} else {
-//    $success = true;
-//}
-//define("results_per_page", 10);
+require_once('../protected/config.php');
+$conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+if ($conn->connect_error) {
+    $errorMsg = "Connection failed: " . $conn->connect_error;
+    $success = false;
+} else {
+    $success = true;
+}
+        
 ?>
 <html lang="en">
 
@@ -70,7 +70,7 @@
             margin-right: auto;
         }
         th{
-            text-align: center;;
+            text-align: center;
         }
         .updatebtn{
             position: relative;
@@ -92,6 +92,46 @@
         }
         button:hover .updateoverlayhide {
           opacity: 0;
+        }
+        
+        
+        body {font-family: Arial;}
+
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #ccc;
+          border-top: none;
         }
 
     </style>
@@ -135,7 +175,23 @@
                 <div class="col-xs-6 col-md-2 col-md-offset-2" id='season'>
                     <h2>List of Modules</h2>
                     <hr>
-                    <p> {English} </p>
+                    <div class="row">
+                        <?php
+                        $sql = "SELECT * FROM users U INNER JOIN enrolledstudents ES on ES.studentID = U.uID INNER JOIN modules M ON M.mID = ES.moduleID WHERE U.uID = 1";
+
+                        $result = $conn->query($sql);
+
+                        if ( $result->num_rows > 0 ) {
+                            foreach ($result as $row) {
+                                ?>
+                                <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, <?php echo $row['mID'] ?>)"><?php echo $row['mName'] ?></button>
+                            <?php
+                            }
+                        }
+                        ?>
+                        <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Paris')">ICT 1002</button>
+                        <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                    </div>
 
                 </div>
                 <div class="col-xs-6  col-md-5 margin-top-bot" >
@@ -163,53 +219,149 @@
             <!-- Start Quick Shop --> 
             <div class="container-fluid" id="quickshop">
                 <div class="row" id="madeforyou">
-                    <h2> Your current {Mod code} progress  </h2>
+                    <h2> Your current progress  </h2>
                     <hr>
-                    <div class="container">
+                     <?php
+                        $sql = "SELECT * FROM sql1902664clj.enrolledstudents where studentId = 2;";
+                        $result = $conn->query($sql);
+                        if ( $result->num_rows > 0 ) {
+                            foreach ($result as $row) {
+                                ?>
+                                <div id="<?php echo $row['moduleID'] ?>" class="tabcontent" class="container">
+                                    <table class="center">
+                                        <tr>
+                                            <th>Start</th>
+                                        <?php 
+                                            $sql2 = "SELECT * FROM sql1902664clj.assessments where mID = '".$row['moduleID']."' and aName != 'Quizzes'";
+                                            $result2 = $conn->query($sql2);
+                                            if ( $result2->num_rows > 0 ) {
+                                                foreach ($result2 as $row2) {
+                                        ?>
+                                            <th><?php echo $row2['aName'] ?></th>
+                                        <?php 
+                                            }
+                                        }
+                                        ?>
+                                        </tr>
+                                            <td>
+                                                <img src="images/Progress Bar/biggreencicle.gif"/>
+                                            </td>
+                                        <?php 
+                                            $sql2 = "SELECT * 
+                                                        FROM sql1902664clj.grades G
+                                                        LEFT JOIN sql1902664clj.assessments SES
+                                                        ON SES.aID = G.aID
+                                                        WHERE SES.mID = ".$row['moduleID']." AND G.studentID = 2 AND SES.aName != 'Quizzes'";
+                                            
+                                            $result2 = $conn->query($sql2);
+                                            if ( $result2->num_rows > 0 ) {
+                                                foreach ($result2 as $row2) {
+                                                    if (strpos($row2['aName'], "Quiz") !== false){
+                                                        echo ("<td>
+                                                                    <button type='button' class='updatebtn' title='Update Details'>
+                                                                        <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
+                                                                        <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
+                                                                    </button>
+                                                                </td>");
+                                                    }
+                                            }
+                                        }
+                                        ?>
+                                        </tr>
+
+<!--                                        <tr>
+                                            <td>
+                                                <button type="button" class="updatebtn" title="Update Details">
+                                                    <img class="updateoverlayhide" src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                                    <img class="updateoverlay" src="images/Progress Bar/biggreencicleTurn.gif" alt=""/>
+                                                </button>
+                                            </td>
+                                            
+                                        </tr>-->
+                                    </table>
+                                </div>
+                            <?php
+                            }
+                        }
+                        ?>
+                    <div id="London" class="tabcontent" class="container">
                         <table class="center">
                             <tr>
                                 <th>Start</th>
                                 <th>Quiz 1</th>
                                 <th>Quiz 2</th>
-                                <th>End</th>
-
+                                <th>Quiz 3</th>
                             </tr>
                             <tr>
                                 <td>
                                     <button type="button" class="updatebtn" title="Update Details">
-                                        <img src="images/Progress Bar/biggreencicle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>
-
+                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreencicleTurn.gif" alt=""/>
                                     </button>
                                 </td>
                                 <td>
                                     <button type="button" class="updatebtn" title="Update Details">
-                                      <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                        <img class="updateoverlayhide"  src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/smallgreencircleTurn.gif" alt=""/>
                                     </button>
                                 </td>
                                 <td>
                                     <button type="button" class="updatebtn" title="Update Details">
-                                      <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                        <img class="updateoverlayhide"  src="images/Progress Bar/smallgreycircle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/smallgreycircleTurn.gif" alt=""/>
                                     </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="updatebtn" title="Update Details">
-                                      <img class="updateoverlayhide" src="images/Progress Bar/smallgreycircle.gif" alt=""/>
-                                      <img class="updateoverlay" src="images/Progress Bar/smallgreycircleTurn.gif" alt=""/>
-                                    </button>
-                                </td>
-                               
+                                </td>  
                                 <td>
                                     <button type="button" class="updatebtn" title="Update Details">
                                         <img class="updateoverlayhide" src="images/Progress Bar/biggreycircle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>                                    </button>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>
+                                    </button>
+                                </td>  
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="Paris" class="tabcontent">
+                        <table class="center">
+                            <tr>
+                                <th>Start</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreencicleTurn.gif" alt=""/>
+                                    </button>
                                 </td>
+                                 
+                            </tr>
+                        </table>
+                     </div>
+                    
+                    <div id="Tokyo" class="tabcontent" class="container">
+                        <table class="center">
+                            <tr>
+                                <th>Start</th>
+                                <th>Quiz 1</th>
                                 
-                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreencicleTurn.gif" alt=""/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                        <img class="updateoverlayhide"  src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/smallgreencircleTurn.gif" alt=""/>
+                                    </button>
+                                </td>
                                 
                             </tr>
                         </table>
-                        </div>
+                     </div>
                                        
                     
                     <div class="container-fluid margin-top-bot" id="threebutton">
@@ -296,7 +448,22 @@
             <!--Footer-->
             <script>
                 //To hide 'customer_id'
-                $("td:nth-of-type(3)").hide();
+//                $("td:nth-of-type(3)").hide();
+
+                function openCity(evt, cityName) {
+                  var i, tabcontent, tablinks;
+                  tabcontent = document.getElementsByClassName("tabcontent");
+                  for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                  }
+                  tablinks = document.getElementsByClassName("tablinks");
+                  for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                  }
+                  document.getElementById(cityName).style.display = "block";
+                  evt.currentTarget.className += " active";
+                }
+
 
                 $(document).ready(function () {
                     $('.updatebtn').on('click', function () {
