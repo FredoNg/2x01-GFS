@@ -27,7 +27,7 @@
 .sidenav a {
   padding: 6px 6px 6px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 20px;
   color: #818181;
   display: block;
 }
@@ -42,11 +42,13 @@
 </head>
 <body>
  <div class="sidenav">
-                <a href="#">Add Students <i class ="fa fa-user"></i></a>
+                <a href="#">Add Students into DB <i class ="fa fa-user"></i></a>
+                <a href="lect_EnrollStudents.php">Enroll Students into Module <i class ="fa fa-user"></i></a>
+                <a href="lect_Modules.php">View Modules [use this]<i class ="fa fa-user"></i></a>
                 <ul>
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            Module<i class ="fa fa-plane"></i></a>
+                            [DEPRECATED]Module<i class ="fa fa-plane"></i></a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
                                 <a href="#">Assessments</a>
@@ -55,7 +57,7 @@
                                 <a href="#"><i class ="fa fa-hand-o-right"></i>Grades</a>
                             </li>
                            <li>
-                                <a href="#"><i class ="fa fa-hand-o-right"></i>Summertive Feedback</a>
+                                <a href="#"><i class ="fa fa-hand-o-right"></i>Summative Feedback</a>
                             </li>
                             <li>
                                 <a href="#"><i class ="fa fa-hand-o-right"></i>Formative Feedback</a>

@@ -1,19 +1,10 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+  session_start();
 ?>
 <html lang="en">
 
     <head>
-        <title>Creole | (Shop)</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Creole | Bringing People Together Through Fashion">
-        <meta name="keywords" content="Fasion, Clothes, Dress, Tops, Bottoms">
+        <title>G.F.S | Lecturer | Home</title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -26,7 +17,7 @@
     </head>
     <body> 
          <main>
-
+             <h1> Welcome, <?php echo $_SESSION['name'];?>.</h1>
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';

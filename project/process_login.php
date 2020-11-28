@@ -44,7 +44,7 @@ else {
     $password = sanitize_input($_POST["password"]);
 }
 
-DBstuff();
+checkDatabaseLogin();
 
 if ($success) {
     
@@ -71,7 +71,7 @@ function sanitize_input($data) {
     return $data;
 }
 
-function DBstuff() {
+function checkDatabaseLogin() {
     global $email, $password, $listoferror, $success;
     //Create connection
     $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
