@@ -13,14 +13,9 @@ if (isset($_SESSION['shopping_cart'])) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                  
                 </button>
-                <a href="homepage.php" class="navbar-left" title="Visit our homepage"><img src="images/design/logo.png" id="nav-logo" alt=""></a>
+                <a href="login.php" class="navbar-left" title="Visit our homepage"><img src="images/design/gfslogo.png" id="nav-logo" alt=""></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="homepage.php" title="Visit the homepage">HOME</a></li>
-                    <li><a href="contact-us.php" title="Send us a message">CONTACT US</a></li>
-                    <li><a href="centres.php" title="Find Centres">CENTRES</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php
                     if (!isset($_SESSION['user_id'])) {

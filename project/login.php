@@ -11,7 +11,7 @@ require_once('../protected/config.php');
 ?>
 <html lang="en">
     <head>
-        <title>G.F.S | (Login)</title>
+        <title>G.F.S | Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Creole | Bringing People Together Through Fashion">
@@ -30,24 +30,25 @@ require_once('../protected/config.php');
 
     <body>
         <main>
-            <div class="container-fluid">
+            <div class="container-fluid" style="text-align:center">
+                <img src="images/design/gfslogo.png" id="nav-logo" alt="">
                 <h1>G.F.S Login</h1>
                 <hr class="us">
                 <p>Please log in using your given email and password.</p>
                 
                 <hr class="us">
-                <div class="col-xs-6  col-md-3 margin-top-bot" >
+                <div class="col-md-4 col-md-offset-4">
                     <h3>Student/Lecturer Login</h3>
                         <form style="border:1px; " action="process_login.php" method="post" >
                             Enter Email:
-                            <input type="text" style="margin-left: 0px; border:1px solid #ccc; " pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" class="form-control" name="email" id="email" placeholder="Enter Email" required aria-label="email login"><br>
+                            <input type="text" style="margin-left: 0px; border:1px solid #ccc; background-color: white" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" class="form-control" name="email" id="email" placeholder="Enter Email" required aria-label="email login"><br>
                             Enter Password:
                             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required aria-label="Enter password"><br>
-                            <button type="submit" class="btn btn-default">Log In</button>
+                            </br>
+                            <button type="reset" class="btn btn-default">Reset</button>
+                            <button type="submit" class="btn btn-default" >Log In</button>
                         </form>
- 
                 </div>
-
             </div>
         </main>
     </body>
