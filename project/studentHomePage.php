@@ -46,7 +46,7 @@
         .middle {
           transition: .5s ease;
           opacity: 1;
-          position: absolute;
+          position: absolute; 
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -65,7 +65,13 @@
         .text {
           color: white;
           font-size: 16px;
-          padding: 16px 32px;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        th{
+            text-align: center;;
         }
     </style>
     <body> 
@@ -108,16 +114,22 @@
                 <div class="col-xs-6 col-md-2 col-md-offset-2" id='season'>
                     <h2>List of Modules</h2>
                     <hr>
-                    <p>English</p>
+                    <p> {English} </p>
 
                 </div>
                 <div class="col-xs-6  col-md-5 margin-top-bot" >
-                    <h3>Student Name</h3>
+                    <h3> {Student Name} </h3>
                     <div class="container">
-                        <img src="images/Student/Male.jpg" alt="Avatar" class="image" style="width:100%">
+                        <img src="images/Student/Female.jpg" alt="Avatar" class="image" style="width:100%">
                             <div class="middle">
-                                <div class="text">
-                                    <img class="text" src="images/Student/1.gif" alt=""/>
+                                <div class="middle">
+                                    <img class="middle" src="images/Student/anonymous-mask.gif" alt=""/> 
+                                    <img class="middle" src="images/Student/ProjoctManagement.gif" alt=""/>
+                                    <img class="middle" src="images/Student/2901-Male.gif" alt=""/>
+                                    <img class="middle" src="images/Student/ethernet.gif" alt=""/>
+                                    <img class="middle" src="images/Student/embedded.gif" alt=""/>
+                                    <!--<img class="middle" src="images/Student/1.gif" alt=""/>-->
+                                    <!--<img class="text" src="images/Student/anonymous-mask.gif" alt=""/>-->
                                 </div>
                             </div>
                         </div
@@ -130,8 +142,35 @@
             <!-- Start Quick Shop --> 
             <div class="container-fluid" id="quickshop">
                 <div class="row" id="madeforyou">
-                    <h2>Ease Of Use</h2>
-                    <h3>Navigate Through Things That Might Interest You</h3>
+                    <h2> Your current {Mod code} progress  </h2>
+                        <table class="center">
+                            <tr>
+                              <th>Start</th>
+                              <th>Quiz 1</th>
+                              <th>Quiz 2</th>
+                              <th>Project</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                </td>
+                                <td>
+                                    <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                </td>
+                                <td>
+                                    <img src="images/Progress Bar/smallgreycircle.gif" alt=""/>
+                                </td>
+                                <td>
+                                    <img src="images/Progress Bar/biggreycircle.gif" alt=""/>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                    
+                    
+
+                    
+                    
                     <div class="container-fluid margin-top-bot" id="threebutton">
                         <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-3" id='menformal'>
                             <a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">Shop</a>
