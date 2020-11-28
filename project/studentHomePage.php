@@ -42,7 +42,6 @@
           backface-visibility: visible;
 
         }
-
         .middle {
           transition: .5s ease;
           opacity: 1;
@@ -73,6 +72,28 @@
         th{
             text-align: center;;
         }
+        .updatebtn{
+            position: relative;
+            background-color: transparent;
+            border-style: none;
+        }
+        .updateoverlay {
+            position: absolute; 
+            color: #f1f1f1; 
+            transition: .5s ease;
+            opacity:0;
+            left: 10%;
+            color: white;
+            text-align: center;
+        }
+
+        button:hover .updateoverlay {
+          opacity: 1;
+        }
+        button:hover .updateoverlayhide {
+          opacity: 0;
+        }
+
     </style>
     <body> 
         <main>
@@ -143,33 +164,53 @@
             <div class="container-fluid" id="quickshop">
                 <div class="row" id="madeforyou">
                     <h2> Your current {Mod code} progress  </h2>
+                    <hr>
+                    <div class="container">
                         <table class="center">
                             <tr>
-                              <th>Start</th>
-                              <th>Quiz 1</th>
-                              <th>Quiz 2</th>
-                              <th>Project</th>
+                                <th>Start</th>
+                                <th>Quiz 1</th>
+                                <th>Quiz 2</th>
+                                <th>End</th>
+
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="images/Progress Bar/biggreencicle.gif" alt=""/>
-                                </td>
-                                <td>
-                                    <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
-                                </td>
-                                <td>
-                                    <img src="images/Progress Bar/smallgreycircle.gif" alt=""/>
-                                </td>
-                                <td>
-                                    <img src="images/Progress Bar/biggreycircle.gif" alt=""/>
-                                </td>
-                            </tr>
-                            
-                        </table>
-                    
-                    
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                        <img src="images/Progress Bar/biggreencicle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>
 
-                    
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                      <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                      <img src="images/Progress Bar/smallgreencircle.gif" alt=""/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                      <img class="updateoverlayhide" src="images/Progress Bar/smallgreycircle.gif" alt=""/>
+                                      <img class="updateoverlay" src="images/Progress Bar/smallgreycircleTurn.gif" alt=""/>
+                                    </button>
+                                </td>
+                               
+                                <td>
+                                    <button type="button" class="updatebtn" title="Update Details">
+                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreycircle.gif" alt=""/>
+                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>                                    </button>
+                                </td>
+                                
+                                
+                                
+                            </tr>
+                        </table>
+                        </div>
+                                       
                     
                     <div class="container-fluid margin-top-bot" id="threebutton">
                         <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-3" id='menformal'>
@@ -191,7 +232,7 @@
             </div>
             <!-- End Quick Shop -->
 
-            <!-- Trending Products -->
+<!--             Trending Products 
             <div class="container-fluid" id="trend">
                 <div class="row">
                     <div class=" col-md-8 col-md-offset-2" id="trending">
@@ -199,10 +240,83 @@
                         <hr>        
                     </div>
                 </div>
+            </div>-->
+           <!-- View Catering Details Modal -->
+            <div class="modal fade" id="updateCatering" tab-index="-1" role="dialog" aria-labelledby="viewCaterinngDetails" aria-hidden="true">
+            
+                <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Centre Information</h4>
+                        </div>
+                        <form action="process_updatedetailsc.php" method="POST">
+                            <div class="modal-body ">
+                                Display the grade/ feedbacks
+<!--                                        <input type="hidden" name="customerID" id="customerID" class="form-control" placeholder="Customer ID" readonly>
+                                        <div class="form-group">
+                                            <label> Centre Code </label>
+                                            <input type="text" name="centreCode" id="centreCode" class="form-control" placeholder="Centre Code" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label> Organization Code </label>
+                                            <input type="text" name="orgCode" id="orgCode" class="form-control" placeholder="Organisation Code">
+                                        </div> 
+                                        <div class="form-group">
+                                            <label> Service Model </label>
+                                            <input type="text" name="serviceModel" id="serviceModel" class="form-control" placeholder="Service Model" >
+                                        </div> 
+                                        <div class="form-group">
+                                            <label> Email </label>
+                                            <input type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="Email" >
+                                        </div>  
+                                        <div class="form-group">
+                                            <label> Address </label>
+                                            <input type="text" name="centreAddress" id="centreAddress" class="form-control" placeholder="Address">
+                                        </div>-->
+                                    </div>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-dark" name="deletebutton">Delete</button>
+                                <button type="submit" class="btn btn-dark" name="updatebutton">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+           
            
             <br>
             <!--Footer-->
+            <script>
+                //To hide 'customer_id'
+                $("td:nth-of-type(3)").hide();
+
+                $(document).ready(function () {
+                    $('.updatebtn').on('click', function () {
+                        $('#updateCatering').modal('show');
+
+                        $tr = $(this).closest('tr');
+
+                        var data = $tr.children("td").map(function () {
+                            return $(this).text();
+                        }).get();
+
+                        console.log(data);
+
+                        $('#centreCode').val(data[1]);
+                        $('#centreName').val(data[3]);
+                        $('#orgCode').val(data[6]);
+                        
+                    });
+                });
+            </script>
             <?php
             include 'footer.inc.php';
             ?>
