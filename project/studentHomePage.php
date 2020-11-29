@@ -135,7 +135,7 @@ if ($conn->connect_error) {
         }
 
     </style>
-    <body> 
+    <body style="overflow-y: hidden;"> 
         <main>
             <img id="message"  style="display:none; height: 100%; width:100%; position: relative;" src="images/Student/OpenPage.gif" alt=""/>
             <!-- Navigation  -->
