@@ -18,16 +18,18 @@ $moduleName = $_POST["moduleName"];
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="js/filter.js"></script> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/shopfilter.css" />
+        
+        
         
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
             ?>
+            
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
@@ -35,7 +37,12 @@ $moduleName = $_POST["moduleName"];
             ?>
             <br>
 
-            <?php
+        </main>
+        
+        <div id="info">
+            <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
+            
+                  <?php
             
             $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
             // Check connection
@@ -49,6 +56,8 @@ $moduleName = $_POST["moduleName"];
             $result = mysqli_query($conn, $sql);
             $row = $result->fetch_assoc();
             $moduleID = $row["mID"];
+            $_SESSION['currentModuleID'] = $moduleID;
+            $_SESSION['currentModuleName'] = $moduleName;
             //we have module id. now we pull info based on that.
 
             //pulling Assessments
@@ -73,9 +82,20 @@ $moduleName = $_POST["moduleName"];
             $conn->close();
             //pull query results to 'result'
             ?>
-            
-            
+            <form action="lect_GiveFeedbackAll.php" method="post">
+            <button type="submit" value="Submit">Give mass feedback</button>
+            </form> 
 
-        </main>
+            <br>
+
+            <form action="lect_GiveFeedbackSingleModule.php" method="post">
+            <button type="submit" value="Submit">Give individual feedback (Summative)</button>
+            </form> 
+        </div>
+         <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

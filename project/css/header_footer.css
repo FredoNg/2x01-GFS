@@ -29,27 +29,29 @@ and open the template in the editor.
 }
 
 .figimage {
-    width: 100%;
+    width: 50%;
     height: auto !important;
 }
 
 /*CSS for footer*/
 footer{
-    width: 100%;
-    background: #222;
+   
+    height:270px;
+    
     color: white;
-    text-align: center;
-    margin: 0;
-    bottom: 0;
+    text-align: left;
+    position: relative;
+    margin-left: 250px;
+    bottom: -600px;
+    
+    
 }
 
 footer h1 {
     font-weight: bolder; 
 }
 
-#footerid {
-    margin-bottom: 10px;
-}
+
 
 .footer-link-txt-responsiveness{
     font-size: 1.3vw;
