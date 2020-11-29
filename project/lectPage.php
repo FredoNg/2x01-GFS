@@ -10,44 +10,51 @@ session_start();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="js/filter.js"></script> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css"/>
-<!--        <style>
-            div.content {
-  margin-left: 600px;
-  padding: 1px 16px;
-/*  height: 100px;*/
-}
-        </style>-->
-    </head>
+        <link rel="stylesheet" href="css/lectpages.css"/>
 
+    </head>
     <!-- Navigation  -->
     <?php
     include 'nav.inc.php';
     ?>
     <!--Navigation End  -->
-
-
     <body>
         <main>
-            <div class="container-fluid" id="messageTag">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-5">
-                        <h1> Welcome, <?php echo $_SESSION['name']; ?>.</h1>
-                        <hr/>
-                    </div>
+            <!-- SIDE Navigation  -->
+            <?php
+            include 'sidenavbar.php';
+            ?>
+            <!-- SIDE Navigation END -->
 
-                        <?php
-                        include 'sidenavbar.php';
-                        ?>
-                </div>
-            </div>       
+            <div class="main">
+                <h1>Welcome, <?php echo $_SESSION['name']; ?>.</h1>
+            </div>     
         </main>
     </body>
+    
+    <!-- SIDE Navigation DROPDOWN script -->
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
 
-<footer>
-    <?php
-    include 'footer.inc.php';
-    ?>
-</footer>
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>   
+    
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
 </html>

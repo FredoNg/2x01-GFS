@@ -38,9 +38,11 @@ footer{
     width: 100%;
     background: #222;
     color: white;
-    text-align: center;
+    text-align: left;
+    position: relative;
     margin: 0;
-    bottom: 0;
+    bottom: 0px;
+    
 }
 
 footer h1 {

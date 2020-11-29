@@ -13,7 +13,7 @@ if (isset($_SESSION['shopping_cart'])) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                  
                 </button>
-                <a href="login.php" class="navbar-left" title="Visit our homepage"><img src="images/design/gfslogo.png" id="nav-logo" alt=""></a>
+                <a href="login.php" class="navbar-left"><img src="images/design/gfslogo.png" id="nav-logo" alt=""></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">

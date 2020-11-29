@@ -1,5 +1,8 @@
+<head>
+    <link rel="stylesheet" href="css/header_footer.css"/>
+</head>
 <footer>
-    <div class="container-fluid">
+    <div class="container-fluid" id="footer">
         <div class="row" id="footerDet">
             <div class="col-md-3 col-md-offset-2 ">
                 <p  class=" footer-margin footerLoc">Sitemap</p>
@@ -39,8 +42,8 @@
                 <a href="https://www.facebook.com/" class="fa fa-facebook" title="Visit our facebook page"></a>
                 <a href="https://www.instagram.com/" class="fa fa-instagram" title="Visit our instagram page"></a>
                 <a href="https://twitter.com/" class="fa fa-twitter" title="Visit our twitter page"></a>-->
-                
-                 Copyright 
+
+                Copyright 
                 <p class="footer-margin" id="copyright" >Copyright &copy; 2019 GFS </p>
             </div>
 
