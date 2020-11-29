@@ -137,7 +137,7 @@ if ($conn->connect_error) {
     </style>
     <body> 
         <main>
-
+            <img id="message"  style="display:none; height: 100%; width:100%; position: relative;" src="images/Student/OpenPage.gif" alt=""/>
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
@@ -378,6 +378,17 @@ if ($conn->connect_error) {
                         <div class="btn-toolbar" role="toolbar">
 
                         </div>
+                        
+                        
+                        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+                        <script>
+                        //When the page has loaded.
+                        $( document ).ready(function(){
+                            $('#message').fadeIn('slow', function(){
+                               $('#message').delay(5000).fadeOut(); 
+                            });
+                        });
+                        </script>
 
                     </div>    
                 </div> 
@@ -438,6 +449,7 @@ if ($conn->connect_error) {
                                 <button type="submit" class="btn btn-dark" name="deletebutton">Delete</button>
                                 <button type="submit" class="btn btn-dark" name="updatebutton">Update</button>
                             </div>
+                             <!--Our div is hidden by default-->
                         </form>
                     </div>
                 </div>
