@@ -18,16 +18,18 @@ $moduleName = $_POST["moduleName"];
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="js/filter.js"></script> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/shopfilter.css" />
+        
+        
         
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
             ?>
+            
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
@@ -35,7 +37,15 @@ $moduleName = $_POST["moduleName"];
             ?>
             <br>
 
-            <?php
+      
+            
+            
+
+        </main>
+        <div id="info">
+            <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
+            
+                  <?php
             
             $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
             // Check connection
@@ -73,9 +83,6 @@ $moduleName = $_POST["moduleName"];
             $conn->close();
             //pull query results to 'result'
             ?>
-            
-            
-
-        </main>
+        </div>
     </body>
 </html>
