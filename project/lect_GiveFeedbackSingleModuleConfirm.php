@@ -7,7 +7,6 @@ require_once('../protected/config.php');
  */
 $feedbackText = $_POST["feedback"];
 
-echo $_POST['student'];
 $studentInfo = explode("_", $_POST['student']);
 $studentID = $studentInfo[0];
 $studentName = $studentInfo[1];

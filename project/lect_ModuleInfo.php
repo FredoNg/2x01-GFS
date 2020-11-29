@@ -33,13 +33,9 @@ $moduleName = $_POST["moduleName"];
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
-            include 'sidenavbar.php';
+            //include 'sidenavbar.php';
             ?>
             <br>
-
-      
-            
-            
 
         </main>
         <div id="info">
@@ -59,6 +55,8 @@ $moduleName = $_POST["moduleName"];
             $result = mysqli_query($conn, $sql);
             $row = $result->fetch_assoc();
             $moduleID = $row["mID"];
+            $_SESSION['currentModuleID'] = $moduleID;
+            $_SESSION['currentModuleName'] = $moduleName;
             //we have module id. now we pull info based on that.
 
             //pulling Assessments
@@ -83,6 +81,15 @@ $moduleName = $_POST["moduleName"];
             $conn->close();
             //pull query results to 'result'
             ?>
+            <form action="lect_GiveFeedbackAll.php" method="post">
+            <button type="submit" value="Submit">Give mass feedback</button>
+            </form> 
+
+            <br>
+
+            <form action="lect_GiveFeedbackSingleModule.php" method="post">
+            <button type="submit" value="Submit">Give individual feedback (Summative)</button>
+            </form> 
         </div>
     </body>
 </html>
