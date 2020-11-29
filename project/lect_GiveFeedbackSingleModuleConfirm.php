@@ -30,7 +30,7 @@ $moduleID = $_SESSION['currentModuleID'];
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : Confirm Individual Feedback (module)</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
@@ -38,9 +38,15 @@ $moduleID = $_SESSION['currentModuleID'];
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
-            <br>
+   
+
+        </main>
+        <div id ="info">
+            <h1> <?php echo $moduleName;?> : Confirm Individual Feedback (module)</h1>
+            
+                     <br>
 
             <?php
             //insert feedback for student under a module. summative.
@@ -62,7 +68,12 @@ $moduleID = $_SESSION['currentModuleID'];
             
             ?>
             <br>
-
-        </main>
+        </div>
+        
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

@@ -6,7 +6,7 @@
 
 /* Fixed sidenav, full height */
 .sidenav {
-    height: 80%;
+    height: 100%;
     width: 250px;
     position: fixed;
     z-index: 1;
@@ -14,8 +14,8 @@
     left: 0 !important;
     background: #222;
     overflow-x: hidden;
-    padding-top: 20px;   
-    margin-top: 0 !important;
+    padding-top: 80px;   
+    
 }
 
 /* Style the sidenav links and the dropdown button */

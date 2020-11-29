@@ -33,11 +33,12 @@ $moduleName = $_POST["moduleName"];
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
             <br>
 
         </main>
+        
         <div id="info">
             <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
             
@@ -91,5 +92,10 @@ $moduleName = $_POST["moduleName"];
             <button type="submit" value="Submit">Give individual feedback (Summative)</button>
             </form> 
         </div>
+         <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

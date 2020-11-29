@@ -28,12 +28,12 @@ session_start();
             ?>
             <!-- SIDE Navigation END -->
 
-            <div class="main">
-                <h1>Welcome, <?php echo $_SESSION['name']; ?>.</h1>
-            </div>     
+               
         </main>
     </body>
-    
+     <div class="main">
+         <h1>Welcome, <?php echo $_SESSION['name']; ?>.</h1>
+     </div> 
     <!-- SIDE Navigation DROPDOWN script -->
     <script>
         var dropdown = document.getElementsByClassName("dropdown-btn");

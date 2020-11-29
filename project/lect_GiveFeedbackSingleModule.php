@@ -24,16 +24,21 @@ $moduleID = $_SESSION['currentModuleID'];
     </head>
     <body> 
          <main>
-             <h2> <?php echo $moduleName;?> : Give Individual Feedback (module)</h2>
+            
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
             ?>
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
-            <br>
+            
+        </main>
+        <div id="info">
+             <h2> <?php echo $moduleName;?> : Give Individual Feedback (module)</h2>
+             
+             <br>
             
             <?php
             //acquire list of students, put in ddl
@@ -71,6 +76,13 @@ $moduleID = $_SESSION['currentModuleID'];
             <br>
             <button type="submit" value="Submit">Give Feedback (Individual)</button>
             </form> 
-        </main>
+             
+             
+        </div>
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

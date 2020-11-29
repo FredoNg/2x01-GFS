@@ -24,21 +24,31 @@ $moduleID = $_SESSION['currentModuleID'];
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : Give Mass Feedback</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
             ?>
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
-            <br>
+           
+        </main>
+        <div id =info>
+            <h1> <?php echo $moduleName;?> : Give Mass Feedback</h1>
+            
+             <br>
 
             <form action="lect_GiveFeedbackAllConfirm.php" method="post">
             <textarea name="feedback" rows="3" cols="40"> </textarea>
             <button type="submit" value="Submit">Give Feedback</button>
             </form> 
-        </main>
+        </div>
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

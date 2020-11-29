@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="css/header_footer.css"/>
 </head>
 
-    <div class="container-fluid" id="footer">
+    <div class="container-fluid" id="footer" >
         <div class="row" id="footerDet">
             <div class="col-md-3 col-md-offset-2 ">
                 <p  class=" footer-margin footerLoc">Sitemap</p>

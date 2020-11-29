@@ -36,13 +36,13 @@ and open the template in the editor.
 /*CSS for footer*/
 footer{
    
-    height:235px;
+    height:270px;
     
     color: white;
     text-align: left;
     position: relative;
-    margin-left: 50px;
-    bottom: -333px;
+    margin-left: 250px;
+    bottom: -600px;
     
     
 }

@@ -11,7 +11,7 @@
     </head>
 
     <body>
-                    <div class="sidenav">
+           <div class="sidenav">
                 <a href="#">Add Students into DB</a>
                 <a href="lect_EnrollStudents.php">Enroll Students into Module</a>
                 <a href="lect_Modules.php">View Modules [use this]</a>
