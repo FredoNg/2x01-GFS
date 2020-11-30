@@ -20,6 +20,7 @@ if ($conn->connect_error) {
         <meta name="description" content="Creole | Bringing People Together Through Fashion">
         <meta name="keywords" content="Fasion, Clothes, Dress, Tops, Bottoms">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -93,8 +94,7 @@ if ($conn->connect_error) {
         button:hover .updateoverlayhide {
           opacity: 0;
         }
-        
-        
+              
         body {font-family: Arial;}
 
         /* Style the tab */
@@ -133,9 +133,23 @@ if ($conn->connect_error) {
           border: 1px solid #ccc;
           border-top: none;
         }
-
+        input[type="text"], select.form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #000000;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+            margin-left: 10px;
+        }
+        input:valid {
+            color: black;
+        }
+       
     </style>
-    <body style="overflow-y: hidden;"> 
+    <body> 
+            <!--<body style="overflow-y: hidden;">--> 
+
         <main>
             <img id="message"  style="display:none; height: 100%; width:100%; position: relative;" src="images/Student/OpenPage.gif" alt=""/>
             <!-- Navigation  -->
@@ -177,7 +191,7 @@ if ($conn->connect_error) {
                     <hr>
                     <div class="row">
                         <?php
-                        $sql = "SELECT * FROM users U INNER JOIN enrolledstudents ES on ES.studentID = U.uID INNER JOIN modules M ON M.mID = ES.moduleID WHERE U.uID = 1";
+                        $sql = "SELECT * FROM users U INNER JOIN enrolledstudents ES on ES.studentID = U.uID INNER JOIN modules M ON M.mID = ES.moduleID WHERE U.uID = 2";
 
                         $result = $conn->query($sql);
 
@@ -191,11 +205,24 @@ if ($conn->connect_error) {
                         ?>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Paris')">ICT 1002</button>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                        <div style="margin-top:30px;">
+                            <a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">Shop</a>
+                        </div>
+
                     </div>
 
                 </div>
                 <div class="col-xs-6  col-md-5 margin-top-bot" >
-                    <h3> {Student Name} </h3>
+                     <?php
+                        $sql = "SELECT * FROM sql1902664clj.users where uID = 2;";
+                        $result = $conn->query($sql);
+                        if ( $result->num_rows > 0 ) {
+                            foreach ($result as $row){
+                                echo ('<h3> '.$row['uName'].' </h3>');
+                            }
+                        }
+                    ?>
+                                     
                     <div class="container">
                         <img src="images/Student/Female.jpg" alt="Avatar" class="image" style="width:100%">
                             <div class="middle">
@@ -220,7 +247,6 @@ if ($conn->connect_error) {
             <div class="container-fluid" id="quickshop">
                 <div class="row" id="madeforyou">
                     <h2> Your current progress  </h2>
-                    <hr>
                      <?php
                         $sql = "SELECT * FROM sql1902664clj.enrolledstudents where studentId = 2;";
                         $result = $conn->query($sql);
@@ -247,7 +273,7 @@ if ($conn->connect_error) {
                                                 <img src="images/Progress Bar/biggreencicle.gif"/>
                                             </td>
                                         <?php 
-                                            $sql2 = "SELECT * 
+                                            $sql2 = "SELECT G.gID, G.grade, SES.aID, G.studentID, SES.mID, SES.aParentID, SES.aName, SES.aWeightage, SES.endDate  
                                                         FROM sql1902664clj.grades G
                                                         LEFT JOIN sql1902664clj.assessments SES
                                                         ON SES.aID = G.aID
@@ -258,14 +284,19 @@ if ($conn->connect_error) {
                                                 foreach ($result2 as $row2) {
                                                     if (strpos($row2['aName'], "Quiz") !== false){
                                                         echo ("<td>
-                                                                    <button type='button' class='updatebtn' title='Update Details'>
+                                                                    <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
+                                                                    data-userid='".$row2['aID']."' data-grade='".$row2['grade']."' data-aname='".$row2['aName']. "'>
                                                                         <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
                                                                         <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
                                                                     </button>
-                                                                </td>");
+                                                               </td>");
                                                     }
                                             }
                                         }
+//                                        <button type='button' class='updatebtn' userid=".$row2['aID']." title='Update Details'>
+//                                            <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
+//                                            <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
+//                                        </button>
                                         ?>
                                         </tr>
 
@@ -284,7 +315,7 @@ if ($conn->connect_error) {
                             }
                         }
                         ?>
-                    <div id="London" class="tabcontent" class="container">
+                    <div id="London" class="tabcontent container">
                         <table class="center">
                             <tr>
                                 <th>Start</th>
@@ -338,7 +369,7 @@ if ($conn->connect_error) {
                         </table>
                      </div>
                     
-                    <div id="Tokyo" class="tabcontent" class="container">
+                    <div id="Tokyo" class="tabcontent container">
                         <table class="center">
                             <tr>
                                 <th>Start</th>
@@ -358,17 +389,13 @@ if ($conn->connect_error) {
                                         <img class="updateoverlay" src="images/Progress Bar/smallgreencircleTurn.gif" alt=""/>
                                     </button>
                                 </td>
-                                
                             </tr>
                         </table>
-                     </div>
+                    </div>
                                        
                     
                     <div class="container-fluid margin-top-bot" id="threebutton">
-                        <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-3" id='menformal'>
-                            <a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">Shop</a>
-                        </div>
-                        <div class="col-xs-6  col-xs-offset-3 col-sm-4 col-sm-offset-4  col-md-2 col-md-offset-0" id='womenformal'>
+                        <!--                        <div class="col-xs-6  col-xs-offset-3 col-sm-4 col-sm-offset-4  col-md-2 col-md-offset-0" id='womenformal'>
                             <a href="aboutus.php" class="btn btn-danger btn-lg btn-block test" role="button">Our Story</a>
                         </div>
                         <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4  col-md-2 col-md-offset-0" id='unisex'>
@@ -376,20 +403,7 @@ if ($conn->connect_error) {
                         </div> 
 
                         <div class="btn-toolbar" role="toolbar">
-
-                        </div>
-                        
-                        
-                        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-                        <script>
-                        //When the page has loaded.
-                        $( document ).ready(function(){
-                            $('#message').fadeIn('slow', function(){
-                               $('#message').delay(5000).fadeOut(); 
-                            });
-                        });
-                        </script>
-
+                        </div>-->
                     </div>    
                 </div> 
             </div>
@@ -404,64 +418,68 @@ if ($conn->connect_error) {
                     </div>
                 </div>
             </div>-->
-           <!-- View Catering Details Modal -->
-            <div class="modal fade" id="updateCatering" tab-index="-1" role="dialog" aria-labelledby="viewCaterinngDetails" aria-hidden="true">
-            
-                <div class="modal-dialog modal-lg">
 
-                    <!-- Modal content-->
+            
+            <div class="modal fade" id="takeaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Centre Information</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <bold><h4 class="modal-title" name="aName" id="myModalLabel" value=""></h4><bold>  
                         </div>
-                        <form action="process_updatedetailsc.php" method="POST">
+                        <form action="process_createCentre.php" method="POST">
                             <div class="modal-body ">
-                                Display the grade/ feedbacks
-<!--                                        <input type="hidden" name="customerID" id="customerID" class="form-control" placeholder="Customer ID" readonly>
-                                        <div class="form-group">
-                                            <label> Centre Code </label>
-                                            <input type="text" name="centreCode" id="centreCode" class="form-control" placeholder="Centre Code" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label> Organization Code </label>
-                                            <input type="text" name="orgCode" id="orgCode" class="form-control" placeholder="Organisation Code">
-                                        </div> 
-                                        <div class="form-group">
-                                            <label> Service Model </label>
-                                            <input type="text" name="serviceModel" id="serviceModel" class="form-control" placeholder="Service Model" >
-                                        </div> 
-                                        <div class="form-group">
-                                            <label> Email </label>
-                                            <input type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="Email" >
-                                        </div>  
-                                        <div class="form-group">
-                                            <label> Address </label>
-                                            <input type="text" name="centreAddress" id="centreAddress" class="form-control" placeholder="Address">
-                                        </div>-->
-                                    </div>
-                                 
+                                <div class="row">
+                                    <div>
+                                        <h4><bold> Grade </bold></h4>
+                                        <label id="grade"><bold> Grade </bold></label>
+                                        </br></br>
+
+                                        <h4><bold> Feedback </bold></h4>
+                                        <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
+                                            
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-dark" name="deletebutton">Delete</button>
-                                <button type="submit" class="btn btn-dark" name="updatebutton">Update</button>
-                            </div>
-                             <!--Our div is hidden by default-->
                         </form>
+                       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Confirm</span></button>
+                        </div>
                     </div>
                 </div>
             </div>
            
-           
             <br>
             <!--Footer-->
+
             <script>
                 //To hide 'customer_id'
 //                $("td:nth-of-type(3)").hide();
+                //When the page has loaded.
+                $(document).ready(function(){
+                    $('#message').fadeIn('slow', function(){
+                       $('#message').delay(5000).fadeOut(); 
+                    });
+                });
 
+                $('#takeaction').on('show.bs.modal', function(e) {
+                    var userid = $(e.relatedTarget).data('userid');
+                    $(e.currentTarget).find('input[name="Feeback"]').val(userid);
+//                    document.getElementById("Feedback").innerHTML = "userid";
+
+                    
+                    var grade = $(e.relatedTarget).data('grade');
+                    $(e.currentTarget).find('input[name="grade"]').val(grade);
+                    document.getElementById("grade").innerHTML = grade;
+
+                    var aName = $(e.relatedTarget).data('aname');
+                    $(e.currentTarget).find('input[name="aName"]').val(aName);
+                    document.getElementById("myModalLabel").innerHTML = aName;
+
+                });
+
+                
                 function openCity(evt, cityName) {
                   var i, tabcontent, tablinks;
                   tabcontent = document.getElementsByClassName("tabcontent");
@@ -474,27 +492,7 @@ if ($conn->connect_error) {
                   }
                   document.getElementById(cityName).style.display = "block";
                   evt.currentTarget.className += " active";
-                }
-
-
-                $(document).ready(function () {
-                    $('.updatebtn').on('click', function () {
-                        $('#updateCatering').modal('show');
-
-                        $tr = $(this).closest('tr');
-
-                        var data = $tr.children("td").map(function () {
-                            return $(this).text();
-                        }).get();
-
-                        console.log(data);
-
-                        $('#centreCode').val(data[1]);
-                        $('#centreName').val(data[3]);
-                        $('#orgCode').val(data[6]);
-                        
-                    });
-                });
+                };
             </script>
             <?php
             include 'footer.inc.php';

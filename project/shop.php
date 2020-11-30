@@ -76,7 +76,25 @@ if ($conn->connect_error) {
             opacity: 0.7;
         }
 
-    </style>
+        .updateoverlay {
+            position: absolute; 
+            color: #f1f1f1; 
+            transition: .5s ease;
+            opacity:0;
+            height:250px;
+            width:250px;
+            right: 7%;
+            color: white;
+            text-align: center;
+        }
+
+        .container:hover .updateoverlay {
+          opacity: 1;
+        }
+        .container:hover .updateoverlayhide {
+          opacity: 0;
+        }
+      </style>
 
     <body>
         <main>
@@ -91,7 +109,10 @@ if ($conn->connect_error) {
             <div class="row">
                 <div class="column">
                     <div class="card">
-                        <img src="images/Student/reward2.png" alt="reward2" style="width:100%">
+                        <div class="container" style="width:100%;">
+                            <img class="updateoverlayhide" src="images/Student/reward2.png" alt="reward2" style="width:100%">
+                            <img class="updateoverlay" style="right: 76%;" src="images/Student/reward2Turn.gif" alt=""/>
+                        </div>
                         <h1>Price</h1>
                         <p class="price">200 points</p>
                         <p>Exchange your 200 points for Price</p>
@@ -100,7 +121,10 @@ if ($conn->connect_error) {
                 </div>
                 <div class="column">
                     <div class="card">
-                        <img src="images/Student/reward3.png" alt="reward3" style="width:100%">
+                        <div class="container" style="width:100%;">
+                            <img class="updateoverlayhide" src="images/Student/reward3.png" alt="" style="width:100%"/>
+                            <img class="updateoverlay" style="right: 42%;" src="images/Student/reward3Turn.gif" alt="reward3">
+                        </div>
                         <h1>Medal</h1>
                         <p class="price">500 points</p>
                         <p>Exchange your 500 points for Medal</p>
@@ -108,10 +132,11 @@ if ($conn->connect_error) {
                     </div>
                 </div>
                 <div class="column">
-
-
                     <div class="card">
-                        <img src="images/Student/reward1.png" alt="reward1" style="width:100%">
+                        <div class="container" style="width:100%;">
+                            <img class="updateoverlayhide" src="images/Student/reward1.png" alt="reward1" style="width:100%">
+                            <img class="updateoverlay" src="images/Student/reward1Turn.gif" alt="reward3">
+                        </div>
                         <h1>Trophy</h1>
                         <p class="price">700 points</p>
                         <p>Exchange your 700 points for Trophy</p>
