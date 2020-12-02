@@ -147,8 +147,8 @@ if ($conn->connect_error) {
         }
        
     </style>
-    <body> 
-            <!--<body style="overflow-y: hidden;">--> 
+    <!--<body>--> 
+            <body style="overflow-y: hidden;"> 
 
         <main>
             <img id="message"  style="display:none; height: 100%; width:100%; position: relative;" src="images/Student/OpenPage.gif" alt=""/>
@@ -203,6 +203,7 @@ if ($conn->connect_error) {
                             }
                         }
                         ?>
+                        <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'London')">ICT 2902</button>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Paris')">ICT 1002</button>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Tokyo')">Tokyo</button>
                         <div style="margin-top:30px;">
@@ -258,10 +259,12 @@ if ($conn->connect_error) {
                                         <tr>
                                             <th>Start</th>
                                         <?php 
+                                            $greycircle = [];
                                             $sql2 = "SELECT * FROM sql1902664clj.assessments where mID = '".$row['moduleID']."' and aName != 'Quizzes'";
                                             $result2 = $conn->query($sql2);
                                             if ( $result2->num_rows > 0 ) {
                                                 foreach ($result2 as $row2) {
+                                                    array_push($greycircle, $row2['aName']);
                                         ?>
                                             <th><?php echo $row2['aName'] ?></th>
                                         <?php 
@@ -273,26 +276,47 @@ if ($conn->connect_error) {
                                                 <img src="images/Progress Bar/biggreencicle.gif"/>
                                             </td>
                                         <?php 
-                                            $sql2 = "SELECT G.gID, G.grade, SES.aID, G.studentID, SES.mID, SES.aParentID, SES.aName, SES.aWeightage, SES.endDate  
+                                            $sql2 = "SELECT G.gID, G.grade, SES.aID, G.studentID, SES.mID, SES.aParentID, SES.aName, SES.aWeightage, SES.endDate, FB.ftext  
                                                         FROM sql1902664clj.grades G
                                                         LEFT JOIN sql1902664clj.assessments SES
                                                         ON SES.aID = G.aID
+                                                        LEFT JOIN sql1902664clj.feedback FB
+                                                        ON FB.gradeID = G.gID
                                                         WHERE SES.mID = ".$row['moduleID']." AND G.studentID = 2 AND SES.aName != 'Quizzes'";
                                             
                                             $result2 = $conn->query($sql2);
+                                            $count = 0;
                                             if ( $result2->num_rows > 0 ) {
                                                 foreach ($result2 as $row2) {
                                                     if (strpos($row2['aName'], "Quiz") !== false){
                                                         echo ("<td>
                                                                     <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
-                                                                    data-userid='".$row2['aID']."' data-grade='".$row2['grade']."' data-aname='".$row2['aName']. "'>
+                                                                    data-userid='".$row2['aID']."' data-grade='".$row2['grade']."' data-aname='".$row2['aName']. "
+                                                                        ' data-feedback='".$row2['ftext']. "'>
                                                                         <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
                                                                         <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
                                                                     </button>
                                                                </td>");
                                                     }
+                                                    $count++;
+                                                }
+                                                for ($count; $count < count($greycircle); $count++){
+                                                    if (strpos($greycircle[$count], "Quiz")!== false){
+                                                        echo ("<td>
+                                                                    <button type='button' class='updatebtn' class='btn btn-default' disabled>
+                                                                        <img src='images/Progress Bar/smallgreycircle.gif'/>
+                                                                    </button>
+                                                               </td>");
+                                                    }
+                                                    if (strpos($greycircle[$count], "Assignment")!== false){
+                                                        echo ("<td>
+                                                                   <button type='button' class='updatebtn' class='btn btn-default' disabled>
+                                                                        <img src='images/Progress Bar/biggreycircle.gif'/>
+                                                                    </button>
+                                                               </td>");
+                                                    }
+                                                }
                                             }
-                                        }
 //                                        <button type='button' class='updatebtn' userid=".$row2['aID']." title='Update Details'>
 //                                            <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
 //                                            <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
@@ -331,21 +355,29 @@ if ($conn->connect_error) {
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="updatebtn" title="Update Details">
-                                        <img class="updateoverlayhide"  src="images/Progress Bar/smallgreencircle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/smallgreencircleTurn.gif" alt=""/>
-                                    </button>
+                                    
+                                        <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
+                                        data-userid="98" data-grade='90' data-aname='Quiz 1
+                                            ' data-feedback='NA'>
+                                            <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
+                                            <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
+                                        </button>
+                                   
                                 </td>
                                 <td>
-                                    <button type="button" class="updatebtn" title="Update Details">
-                                        <img class="updateoverlayhide"  src="images/Progress Bar/smallgreycircle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/smallgreycircleTurn.gif" alt=""/>
+                                    <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
+                                        data-userid="97" data-grade='60' data-aname='Quiz 2
+                                        ' data-feedback='NA'>
+                                        <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
+                                        <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
                                     </button>
                                 </td>  
                                 <td>
-                                    <button type="button" class="updatebtn" title="Update Details">
-                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreycircle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/biggreycircleTurn.gif" alt=""/>
+                                    <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
+                                        data-userid="96" data-grade='30' data-aname='Quiz 3
+                                        ' data-feedback='NA'>
+                                        <img class='updateoverlayhide' src='images/Progress Bar/smallgreencircle.gif'/>
+                                        <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
                                     </button>
                                 </td>  
                             </tr>
@@ -392,19 +424,6 @@ if ($conn->connect_error) {
                             </tr>
                         </table>
                     </div>
-                                       
-                    
-                    <div class="container-fluid margin-top-bot" id="threebutton">
-                        <!--                        <div class="col-xs-6  col-xs-offset-3 col-sm-4 col-sm-offset-4  col-md-2 col-md-offset-0" id='womenformal'>
-                            <a href="aboutus.php" class="btn btn-danger btn-lg btn-block test" role="button">Our Story</a>
-                        </div>
-                        <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4  col-md-2 col-md-offset-0" id='unisex'>
-                            <a href="contact-us.php" class="btn btn-danger btn-lg btn-block test" role="button">Find Us</a>
-                        </div> 
-
-                        <div class="btn-toolbar" role="toolbar">
-                        </div>-->
-                    </div>    
                 </div> 
             </div>
             <!-- End Quick Shop -->
@@ -418,11 +437,13 @@ if ($conn->connect_error) {
                     </div>
                 </div>
             </div>-->
-
-            
+           
             <div class="modal fade" id="takeaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <img id="bad" class="center" style="margin-top: 100px;" src="images/grade/tryharder.gif" alt=""/>
+                    <img id="okok" class="center" style="margin-top: 100px;" src="images/grade/dobetter.gif" alt=""/>
+                    <img id="good" class="center" style="margin-top: 100px;" src="images/grade/goodjob.gif" alt=""/>
+                    <div class="modal-content" id="box">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <bold><h4 class="modal-title" name="aName" id="myModalLabel" value=""></h4><bold>  
@@ -434,7 +455,7 @@ if ($conn->connect_error) {
                                         <h4><bold> Grade </bold></h4>
                                         <label id="grade"><bold> Grade </bold></label>
                                         </br></br>
-
+                                        
                                         <h4><bold> Feedback </bold></h4>
                                         <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
                                             
@@ -462,16 +483,45 @@ if ($conn->connect_error) {
                        $('#message').delay(5000).fadeOut(); 
                     });
                 });
-
+                
+                
                 $('#takeaction').on('show.bs.modal', function(e) {
-                    var userid = $(e.relatedTarget).data('userid');
-                    $(e.currentTarget).find('input[name="Feeback"]').val(userid);
-//                    document.getElementById("Feedback").innerHTML = "userid";
-
+                   
+                    var x = document.getElementById("box");
+                    var good = document.getElementById("good");
+                    var bad = document.getElementById("bad");
+                    var okok = document.getElementById("okok");
+                    okok.style.display = "none";
+                    good.style.display = "none";
+                    bad.style.display = "none";
+                    x.style.display = "none";
                     
                     var grade = $(e.relatedTarget).data('grade');
                     $(e.currentTarget).find('input[name="grade"]').val(grade);
                     document.getElementById("grade").innerHTML = grade;
+                    
+                    if (grade >= 80){
+                        $('#good').fadeIn('slow', function(){
+                            $('#good').delay(5000).fadeOut(); 
+                         });
+                    }else if (grade < 80 && grade > 50){
+                        $('#okok').fadeIn('slow', function(){
+                            $('#okok').delay(5000).fadeOut(); 
+                         });
+                    }else {
+                        $('#bad').fadeIn('slow', function(){
+                            $('#bad').delay(5000).fadeOut(); 
+                         });
+                    }
+                  
+                    setTimeout(function() {
+                        x.style.display = "block";
+                    }, 5500);
+                                        
+                    var feedback = $(e.relatedTarget).data('feedback');
+                    document.getElementById("Feedback").innerHTML = feedback;
+                    
+                    
 
                     var aName = $(e.relatedTarget).data('aname');
                     $(e.currentTarget).find('input[name="aName"]').val(aName);
@@ -495,7 +545,7 @@ if ($conn->connect_error) {
                 };
             </script>
             <?php
-            include 'footer.inc.php';
+//            include 'footer.inc.php';
             ?>
             <!--Footer End-->
         </main>
