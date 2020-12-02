@@ -5,15 +5,17 @@ require_once('../protected/config.php');
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$feedbackText = $_POST["feedback"];
-$feedbackTextDDL = $_POST["feedbackDDL"];
+$studentInfo = explode("_", $_POST['student']);
+$studentID = $studentInfo[0];
+$studentName = $studentInfo[1];
+
 $moduleName = $_SESSION['currentModuleName'];
 $moduleID = $_SESSION['currentModuleID'];
 ?>
 <html lang="en">
 
     <head>
-        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Confirmed Mass Feedback</title>
+        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Confirm New Assessment </title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -26,7 +28,7 @@ $moduleID = $_SESSION['currentModuleID'];
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : Confirm Mass Feedback</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
@@ -34,35 +36,43 @@ $moduleID = $_SESSION['currentModuleID'];
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
+   
+
+        </main>
+        <div id ="info">
+            <h1> <?php echo $moduleName;?> : Confirm Student Enrollment</h1>
+            
             <br>
 
             <?php
-            //insert feedback that only has ModuleID. this is taken as module-wide feedback.
-            $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            
-            if ($_POST["feedbackDDL"] == "none")  //use textbox input
-                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID) VALUES ('$feedbackText', NOW(), '$moduleID')";
-            else                                //use DDL inpunt
-                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID) VALUES ('$feedbackTextDDL', NOW(), '$moduleID')";
-
-            if ($conn->query($sql) === TRUE) {
-                echo "Mass feedback given.";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-                }
                     
-            $conn->close();
-            
-            ?>
+                //insert feedback that only has ModuleID. this is taken as module-wide feedback.
+                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $sql = "INSERT INTO EnrolledStudents VALUES ('$moduleID', '$studentID')";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Student '$studentName' successfully enrolled into module.";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                $conn->close();
+                ?>
             <br>
             <a href="lectPage.php">Return to Main</a>
 
-        </main>
+        </div>
+        
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>

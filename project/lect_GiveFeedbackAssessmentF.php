@@ -11,7 +11,7 @@ $moduleID = $_SESSION['currentModuleID'];
 <html lang="en">
 
     <head>
-        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Give Feedback (Individual) <?php echo $moduleID;?></title>
+        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Assessment Feedback (Formative) <?php echo $moduleID;?></title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -36,11 +36,21 @@ $moduleID = $_SESSION['currentModuleID'];
             
         </main>
         <div id="info">
-             <h2> <?php echo $moduleName;?> : Give Individual Feedback (module)</h2>
+             <h2> <?php echo $moduleName;?> : Give Assessment Feedback (Formative)</h2>
              
              <br>
             
             <?php
+            //acquire list of assessments, put in ddl
+                    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+                    // Check connection
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT * FROM Assessments WHERE mID = '$moduleID'";
+                    $result1 = mysqli_query($conn, $sql);
+
             //acquire list of students, put in ddl
                     $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                     // Check connection
@@ -49,17 +59,32 @@ $moduleID = $_SESSION['currentModuleID'];
                     }
 
                     $sql = "SELECT u.uID, u.uName FROM Users u, EnrolledStudents e WHERE u.uID = e.studentID AND e.moduleID = '$moduleID'";
-                    $result = mysqli_query($conn, $sql);
+                    $result2 = mysqli_query($conn, $sql);
 
                     $conn->close();
             ?>
 
-            <form action="lect_GiveFeedbackSingleModuleConfirm.php" method="post">
+            <form action="lect_GiveFeedbackAssessmentFConfirm.php" method="post">
+                <p> select assessment: </p>
+            <select id="assessment" name="assessment" style="font-family:sans-serif; font-size: 18px">
+                <?php
+                echo '<option>Select</option>';
+                while ($row = mysqli_fetch_array($result1)) {
+                    //populate with assessment entries
+                    $combined = $row['aID'].'_'.$row['aName'];
+                    echo '<option value="'.$combined.'">'. $row['aID'].' - '.$row['aName'] .'</option>';
+                }
+                echo '</select>';
+                //shows DDL of all enrolled students
+                ?>
+            </select>
+            <br>
+            
                 <p> select student: </p>
             <select id="student" name="student" style="font-family:sans-serif; font-size: 18px">
                 <?php
                 echo '<option>Select</option>';
-                while ($row = mysqli_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($result2)) {
                     //populate with enrolled student entries
                     $combined = $row['uID'].'_'.$row['uName'];
                     //can't place whitespace char in option value apparently.
@@ -72,7 +97,7 @@ $moduleID = $_SESSION['currentModuleID'];
             <br>
             <textarea name="feedback" rows="3" cols="40"> </textarea>
             <br>
-            <button type="submit" value="Submit">Give Feedback (Individual)</button>
+            <button type="submit" value="Submit">Give Module Feedback (Individual)</button>
             </form> 
              
              

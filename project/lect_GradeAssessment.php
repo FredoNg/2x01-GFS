@@ -11,7 +11,7 @@ $moduleID = $_SESSION['currentModuleID'];
 <html lang="en">
 
     <head>
-        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Give Feedback (Individual) <?php echo $moduleID;?></title>
+        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Assessment Feedback (Formative) <?php echo $moduleID;?></title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -36,30 +36,51 @@ $moduleID = $_SESSION['currentModuleID'];
             
         </main>
         <div id="info">
-             <h2> <?php echo $moduleName;?> : Give Individual Feedback (module)</h2>
+            <h1> <?php echo $moduleName;?> : Grade Assessment | Give Summative Feedback</h1>
              
-             <br>
-            
+            <br>
+            <h2> Give or edit a grade, and give summative feedback</h2>
+            <br>
             <?php
-            //acquire list of students, put in ddl
-                    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-                    // Check connection
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+            // acquire all assessments that have weightages, put in ddl
+                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
 
-                    $sql = "SELECT u.uID, u.uName FROM Users u, EnrolledStudents e WHERE u.uID = e.studentID AND e.moduleID = '$moduleID'";
-                    $result = mysqli_query($conn, $sql);
+                $sql = "SELECT * FROM Assessments WHERE mID = '$moduleID' AND aWeightage > 0";
+                $result1 = mysqli_query($conn, $sql);
 
-                    $conn->close();
+                //acquire list of enrolled students, put in ddl
+
+                $sql = "SELECT u.uID, u.uName FROM Users u, EnrolledStudents e WHERE u.uID = e.studentID AND e.moduleID = '$moduleID'";
+                $result2 = mysqli_query($conn, $sql);
+
+                $conn->close();
             ?>
 
-            <form action="lect_GiveFeedbackSingleModuleConfirm.php" method="post">
-                <p> select student: </p>
+            <form action="lect_GiveGradeAssessmentConfirm.php" method="post">
+                <p> Select assessment: </p>
+            <select id="assessment" name="assessment" style="font-family:sans-serif; font-size: 18px">
+                <?php
+                echo '<option>Select</option>';
+                while ($row = mysqli_fetch_array($result1)) {
+                    //populate with assessment entries
+                    $combined = $row['aID'].'_'.$row['aName'];
+                    echo '<option value="'.$combined.'">'. $row['aID'].' - '.$row['aName'] .'</option>';
+                }
+                echo '</select>';
+                
+                ?>
+            </select>
+            <br>
+            
+                <p> Select student: </p>
             <select id="student" name="student" style="font-family:sans-serif; font-size: 18px">
                 <?php
                 echo '<option>Select</option>';
-                while ($row = mysqli_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($result2)) {
                     //populate with enrolled student entries
                     $combined = $row['uID'].'_'.$row['uName'];
                     //can't place whitespace char in option value apparently.
@@ -69,10 +90,15 @@ $moduleID = $_SESSION['currentModuleID'];
                 //shows DDL of all enrolled students
                 ?>
             </select>
+                
             <br>
+            <label>Enter Grade (in percentage)</label>
+            <input type="number" name="grade"><br>
+            <label>Enter Feedback (can be empty)</label><br>
             <textarea name="feedback" rows="3" cols="40"> </textarea>
+            
             <br>
-            <button type="submit" value="Submit">Give Feedback (Individual)</button>
+            <button type="submit" value="Submit">Proceed</button>
             </form> 
              
              

@@ -68,6 +68,7 @@ $moduleID = $_SESSION['currentModuleID'];
             
             ?>
             <br>
+            <a href="lectPage.php">Return to Main</a>
         </div>
         
     <footer>

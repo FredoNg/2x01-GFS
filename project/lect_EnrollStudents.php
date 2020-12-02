@@ -5,6 +5,8 @@ require_once('../protected/config.php');
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+$moduleName = $_SESSION['currentModuleName'];
+$moduleID = $_SESSION['currentModuleID'];
 ?>
 <html lang="en">
     <head>
@@ -35,53 +37,42 @@ require_once('../protected/config.php');
             <!-- SIDE Navigation END -->
 
             <div class="main">
-                <h1> ENROLL STUDENTS INTO MODULE </h1>
+                <h1> Enroll students into <?php echo $moduleName;?> </h1>
 
                 <div>
                     <?php
-                    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-                    // Check connection
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    //we just assume module is ICT1111. mID is 1
-                    //normally we have Lect select a module here
-                    $moduleID = 1;
-
-                    $sql = "SELECT * FROM Users WHERE user_type = 'Student' AND uID NOT IN (SELECT studentID FROM EnrolledStudents WHERE moduleID = '$moduleID')";
-                    $result = mysqli_query($conn, $sql);
-
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        //acquired all students not in that module
-                        //i.e students that can be added
-                        //place content into a table
-                        //Select a student entry to 'Enroll' that student into module
-                        //say, we selected the very first entry
-
-                        $selectedStudent = $row['uID'];
-                        $name = $row['uName'];
-
-                        $sql = "INSERT INTO EnrolledStudents VALUES ('$moduleID', '$selectedStudent')";
-
-                        if ($conn->query($sql) === TRUE) {
-                            echo "Student '$name' successfully enrolled into module.";
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
+                        //acquire list of students, put in ddl
+                        $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
                         }
-                    } else {    //no entries. meaning no available students
-                        echo "<hr>";
-                        echo "<h1> There are no students available to enroll.</h1>";
-                        echo "<br>";
-                        echo("<button class='btn btn-default' onclick=\"location.href='lectPage.php'\">Back to homepage</button>");
-                        echo "<hr>";
-                    }
-                    //add user
 
+                        $sql = "SELECT * FROM Users WHERE user_type = 'Student' AND uID NOT IN (SELECT studentID FROM EnrolledStudents WHERE moduleID = '$moduleID')";
+                        $result = mysqli_query($conn, $sql);   //result for unenrolled students
 
-                    $conn->close();
-                    ?>
+                        $conn->close();
+
+                        ?>
+                    
+                    <form action="lect_EnrollStudentsConfirm.php" method="post">
+                        <p> select student: </p>
+                        <select id="student" name="student" style="font-family:sans-serif; font-size: 18px">
+                            <?php
+                            echo '<option>Select</option>';
+                            while ($row = mysqli_fetch_array($result)) {
+                                $combined = $row['uID'].'_'.$row['uName'];
+                                //can't place whitespace char in option value apparently.
+                                echo '<option value="'.$combined.'">'. $row['uID'].' - '.$row['uName'] .'</option>';
+                            }
+                            echo '</select>';
+                            //shows DDL of all students not enrolled
+                            ?>
+                        </select>
+                        <br>
+                        <button type="submit" value="Submit">Enroll Student</button>
+                    </form> 
+                    
                 </div>
             </div>
 

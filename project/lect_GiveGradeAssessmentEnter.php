@@ -5,13 +5,16 @@ require_once('../protected/config.php');
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+$aInfo = $_POST['assessment'];
+$sInfo = $_POST['student'];
+
 $moduleName = $_SESSION['currentModuleName'];
 $moduleID = $_SESSION['currentModuleID'];
 ?>
 <html lang="en">
 
     <head>
-        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Give Mass Feedback | <?php echo $moduleID;?></title>
+        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Enter Grade and Feedback</title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -29,33 +32,31 @@ $moduleID = $_SESSION['currentModuleID'];
             <?php
             include 'nav.inc.php';
             ?>
+            <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
             include 'sidenavbar.php';
             ?>
-           
-        </main>
-        <div id =info>
-            <h1> <?php echo $moduleName;?> : Give Mass Feedback</h1>
-            
-             <br>
+   
 
-            <form action="lect_GiveFeedbackAllConfirm.php" method="post">
-            Enter Feedback (should not be empty):<br>
-            <textarea name="feedback" rows="3" cols="40"> </textarea><br>
-            Alternatively, select from the following preset feedback:<br>
-            <select id="feedbackDDL" name="feedbackDDL" style="font-family:sans-serif; font-size: 18px">
-                <option value = "none">-</option>
-                <option value = "Good job!">Good Job!</option>
-                <option value = "Good effort!">Good effort!</option>
-                <option value = "Good try.">Good try.</option>
-            </select>
-            
-            <button type="submit" value="Submit">Give Feedback</button>
-            
-            
-            </form> 
+        </main>
+        <div id ="info">
+            <h1> <?php echo $moduleName;?> : Enter Grade and Feedback</h1>
+                <form action="lect_GiveGradeAssessmentConfirm.php" method="post">
+                    <br>
+                    <label>Enter Grade (in percentage)</label>
+                    <input type="number" name="grade"><br>
+                    <label>Enter Feedback (can be empty)</label><br>
+                    <textarea name="feedback" rows="3" cols="40"> </textarea>
+                    
+                    <input type="hidden" id="assessment" name="assessment" value="<?php echo $aInfo?>">
+                    <input type="hidden" id="student" name="student" value="<?php echo $sInfo?>">
+                    <button type="submit" value="Submit">Proceed</button>
+                </form>
+            <br>
+            <a href="lectPage.php">Exit and return to Main</a>
         </div>
+        
     <footer>
         <?php
         include 'footer.inc.php';

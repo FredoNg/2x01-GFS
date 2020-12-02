@@ -42,7 +42,7 @@ $moduleName = $_POST["moduleName"];
         <div id="info">
             <h1> <?php echo $moduleName;?> : MODULE INFORMATION</h1>
             
-                  <?php
+            <?php
             
             $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
             // Check connection
@@ -64,33 +64,85 @@ $moduleName = $_POST["moduleName"];
             
             $sql = "SELECT aID, aParentID, aName, aWeightage, endDate FROM Assessments WHERE mID = '$moduleID'";
             $result = mysqli_query($conn, $sql);
- 
 
+            echo '<table border="1" cellspacing="3" cellpadding="3"> 
+              <tr> 
+                  <td> A-ID</td>
+                  <td> Name</td> 
+                  <td> Weightage</td> 
+                  <td> End Date</td>
+
+              </tr>';
+            
             if ($result->num_rows > 0) {
             // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    echo "aID: " . $row["aID"]. " - Name: " . $row["aName"]. " - Weightage: " . $row["aWeightage"]. 
-                        " - End Date: " . $row["endDate"]. "<br>";
-                    }
+                    $field1name = $row["aID"];
+                    $field2name = $row["aName"];
+                    $field3name = $row["aWeightage"];
+                    $field4name = $row["endDate"];
+
+                    echo '<tr> 
+                              <td>'.$field1name.'</td> 
+                              <td>'.$field2name.'</td> 
+                              <td>'.$field3name.'</td> 
+                              <td>'.$field4name.'</td> 
+                          </tr>';
+                }
+                    
+                //output total current weightage. helpful.
+                    
+                $sql = "SELECT SUM(aWeightage) FROM Assessments WHERE mID = '$moduleID'";
+                $result =  mysqli_query($conn, $sql);
+                $row = mysqli_fetch_array($result);
+                $sumWeightage = $row["SUM(aWeightage)"];
+                echo ("Current combined weightage of components: ". $sumWeightage);
+                
                 }
             else {
             echo "0 results";
             }
             
-            
-            
             $conn->close();
             //pull query results to 'result'
             ?>
-            <form action="lect_GiveFeedbackAll.php" method="post">
-            <button type="submit" value="Submit">Give mass feedback</button>
+            <br>
+            <form action="lect_CreateAssessment.php" method="post">
+            <button type="submit" value="Submit">Create New Assessment</button>
             </form> 
-
+            
+            <br>
+            
+            <form action="lect_EnrollStudents.php" method="post">
+            <button type="submit" value="Submit">Enroll Students in this module</button>
+            </form> 
+            
+            <br>
+            
+            <label>Give Feedback</label><br>
+            
+            <form action="lect_GradeAssessment.php" method="post">
+            <button type="submit" value="Submit">Grade and give feedback (Summative)</button>
+            </form> 
+            <br>
+            
+            <form action="lect_GiveFeedbackAll.php" method="post">
+            <button type="submit" value="Submit">Give mass feedback (Formative)</button>
+            </form> 
             <br>
 
             <form action="lect_GiveFeedbackSingleModule.php" method="post">
-            <button type="submit" value="Submit">Give individual feedback (Summative)</button>
+            <button type="submit" value="Submit">Give individual module feedback (Formative)</button>
             </form> 
+            
+            <br>
+
+            <form action="lect_GiveFeedbackAssessmentF.php" method="post">
+            <button type="submit" value="Submit">Give assessment feedback (Formative)</button>
+            </form> 
+            
+            
+            
         </div>
          <footer>
         <?php

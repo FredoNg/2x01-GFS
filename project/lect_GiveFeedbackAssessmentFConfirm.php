@@ -6,14 +6,21 @@ require_once('../protected/config.php');
  * and open the template in the editor.
  */
 $feedbackText = $_POST["feedback"];
-$feedbackTextDDL = $_POST["feedbackDDL"];
+
+$aInfo = explode("_", $_POST['assessment']);
+$aID = $aInfo[0];
+$aName = $aInfo[1];
+$sInfo = explode("_", $_POST['student']);
+$sID = $sInfo[0];
+$sName = $sInfo[1];
+
 $moduleName = $_SESSION['currentModuleName'];
 $moduleID = $_SESSION['currentModuleID'];
 ?>
 <html lang="en">
 
     <head>
-        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Confirmed Mass Feedback</title>
+        <title>G.F.S | Lecturer | <?php echo $moduleName;?> | Confirm Assessment Feedback (Formative)</title>
         <link rel="stylesheet" href="sideNav.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -26,7 +33,7 @@ $moduleID = $_SESSION['currentModuleID'];
     </head>
     <body> 
          <main>
-             <h1> <?php echo $moduleName;?> : Confirm Mass Feedback</h1>
+             
             <!-- Navigation  -->
             <?php
             include 'nav.inc.php';
@@ -34,27 +41,31 @@ $moduleID = $_SESSION['currentModuleID'];
             <!--Navigation End  -->
             <!-- side nav bar -->
             <?php
-            //include 'sidenavbar.php';
+            include 'sidenavbar.php';
             ?>
-            <br>
+   
+
+        </main>
+        <div id ="info">
+            <h1> <?php echo $moduleName;?> : Confirm Assessment Feedback (Formative)</h1>
+            
+                     <br>
 
             <?php
-            //insert feedback that only has ModuleID. this is taken as module-wide feedback.
+            //insert feedback for student under a module. summative.
             $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
             // Check connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
             
-            if ($_POST["feedbackDDL"] == "none")  //use textbox input
-                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID) VALUES ('$feedbackText', NOW(), '$moduleID')";
-            else                                //use DDL inpunt
-                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID) VALUES ('$feedbackTextDDL', NOW(), '$moduleID')";
+            $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID, assessmentID)"
+                    . " VALUES ('$feedbackText', NOW(), '$moduleID', '$sID', '$aID')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "Mass feedback given.";
+                echo "Feedback given for student '$sName' under assessment '$aName'";
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "Error: " . $sql . " Feedback unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
                 }
                     
             $conn->close();
@@ -62,7 +73,12 @@ $moduleID = $_SESSION['currentModuleID'];
             ?>
             <br>
             <a href="lectPage.php">Return to Main</a>
-
-        </main>
+        </div>
+        
+    <footer>
+        <?php
+        include 'footer.inc.php';
+        ?>
+    </footer>
     </body>
 </html>
