@@ -64,33 +64,66 @@ $moduleID = $_SESSION['currentModuleID'];
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
-                //insert grade for student's assessment
-                $sql = "INSERT INTO Grades (grade, givenDate, aID, studentID) VALUES ($grade, NOW(), '$aID', '$sID')";
-
-                if ($conn->query($sql) === TRUE) {
-                    //get gradeID from above insert
-
-                    $sql = "SELECT * FROM Grades WHERE aID = '$aID' AND studentID = '$sID'";
-                    $result = mysqli_query($conn, $sql);
-                    $row = mysqli_fetch_array($result);
-                    $gradeID = $row['gID'];
-
-                    //acquired gradeID, now make insert feedback
-                    //insert feedback for student under a module. summative
-                    $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID, assessmentID, gradeID)"
-                            . " VALUES ('$feedbackText', NOW(), '$moduleID', '$sID', '$aID', '$gradeID')";
+                
+                //check if this grade already exists.
+                
+                $sql = "SELECT * FROM Grades WHERE aID = '$aID' AND studentID = '$sID'";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_array($result);
+                $gradeID = $row['gID'];
+                
+                if ($result->num_rows > 0) {
+                //there's a duplicate. just UPDATE the record.
+                    $sql = "UPDATE Grades SET grade = '$grade' WHERE gID = '$gradeID'";
+                    
+                    if ($conn->query($sql) === TRUE) {
+                        
+                        $sql = "UPDATE Feedback SET fText = '$feedbackText' WHERE gradeID = '$gradeID'";
+                        if ($conn->query($sql) === TRUE) {
+                            echo "Assessment '$aName' grade updated for student '$sName' .<br>";
+                            echo "Feedback updated  for student '$sName' under assessment '$aName'";
+                        } else {
+                            echo "Error: " . $sql . " Feedback unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
+                            }
+                    }
+                    else 
+                    {
+                        echo "Error: " . $sql . " Feedback unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
+                    }
+                    
+                }
+                
+                else
+                {
+                    //no existing grade. make new grade.
+                    //insert grade for student's assessment
+                    $sql = "INSERT INTO Grades (grade, givenDate, aID, studentID) VALUES ($grade, NOW(), '$aID', '$sID')";
 
                     if ($conn->query($sql) === TRUE) {
-                        echo "Assessment '$aName' graded for student '$sName' .<br>";
-                        echo "Feedback given for student '$sName' under assessment '$aName'";
-                    } else {
-                        echo "Error: " . $sql . " Feedback unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
-                        }
+                        //get gradeID from above insert
 
-                } else {
-                    echo "Error: " . $sql . " Grading unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
+                        $sql = "SELECT * FROM Grades WHERE aID = '$aID' AND studentID = '$sID'";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_array($result);
+                        $gradeID = $row['gID'];
+
+                        //acquired gradeID, now make insert feedback
+                        //insert feedback for student under a module. summative
+                        $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID, assessmentID, gradeID)"
+                                . " VALUES ('$feedbackText', NOW(), '$moduleID', '$sID', '$aID', '$gradeID')";
+
+                        if ($conn->query($sql) === TRUE) {
+                            echo "Assessment '$aName' graded for student '$sName' .<br>";
+                            echo "Feedback given for student '$sName' under assessment '$aName'";
+                        } else {
+                            echo "Error: " . $sql . " Feedback unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
+                            }
+
                     }
-
+                    else
+                        echo "Error: " . $sql . " Grading unsuccessful for student '$sName' under assessment '$aName' "."<br>" . $conn->error;
+                }
+                
                 $conn->close();
             }
 

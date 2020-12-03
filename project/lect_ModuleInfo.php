@@ -102,6 +102,7 @@ $moduleName = $_POST["moduleName"];
             else {
             echo "0 results";
             }
+            echo "</table>";
             
             $conn->close();
             //pull query results to 'result'

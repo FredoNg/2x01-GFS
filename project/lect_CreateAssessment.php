@@ -43,7 +43,8 @@ $moduleID = $_SESSION['currentModuleID'];
             <form action="lect_CreateAssessmentConfirm.php" method="post">
                 
                 Assessment name: <input type="textbox" name="name"><br>
-                Weightage (in numbers): <input type="number" name="weightage"><br>
+                Weightage (in numbers): <br>
+                (leave empty for parent assessment): <input type="number" name="weightage"><br>
                 Deadline: (INSERT DATE-PICKER HERE)<br>
                 If Sub-assessment, select parent assessment:<br>
                 

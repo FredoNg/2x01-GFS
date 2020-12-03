@@ -70,8 +70,16 @@ $moduleID = $_SESSION['currentModuleID'];
                 ?>
             </select>
             <br>
+            Enter Feedback (should not be empty):<br>
             <textarea name="feedback" rows="3" cols="40"> </textarea>
             <br>
+            Alternatively, select from the following preset feedback:<br>
+            <select id="feedbackDDL" name="feedbackDDL" style="font-family:sans-serif; font-size: 18px">
+                <option value = "none">-</option>
+                <option value = "Good job!">Good Job!</option>
+                <option value = "Good effort!">Good effort!</option>
+                <option value = "Good try.">Good try.</option>
+            </select>
             <button type="submit" value="Submit">Give Feedback (Individual)</button>
             </form> 
              

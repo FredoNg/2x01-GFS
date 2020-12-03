@@ -42,6 +42,8 @@ $moduleID = $_SESSION['currentModuleID'];
         </main>
         <div id ="info">
             <h1> <?php echo $moduleName;?> : Enter Grade and Feedback</h1>
+            <br>
+                <label>Note: this will overwrite any existing grade for the same student and assessment.</label>
                 <form action="lect_GiveGradeAssessmentConfirm.php" method="post">
                     <br>
                     <label>Enter Grade (in percentage)</label>
