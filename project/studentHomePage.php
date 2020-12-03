@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 } else {
     $success = true;
 }
-        
+
 ?>
 <html lang="en">
 
@@ -172,7 +172,12 @@ if ($conn->connect_error) {
                         if ( $result->num_rows > 0 ) {
                             foreach ($result as $row) {
                                 ?>
-                                <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, <?php echo $row['mID'] ?>)"><?php echo $row['mName'] ?></button>
+                                <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, <?php echo $row['mID'] ?>)">
+                                    <?php echo $row['mName'];
+                                        $session["formativeID"] = $row['mID'];
+                                            ?>
+                                    
+                                </button>
                             <?php
                             }
                         }
@@ -241,7 +246,12 @@ if ($conn->connect_error) {
                         if ( $result->num_rows > 0 ) {
                             foreach ($result as $row) {
                                 ?>
+                                    
                                 <div id="<?php echo $row['moduleID'] ?>" class="tabcontent" class="container">
+                                    <button type='button' data-toggle='modal' data-target='#vformative' class='btn btn-default' 
+                                    data-mid='<?php echo $row['moduleID']?>'>
+                                        View All Formative Feedback
+                                    </button>
                                     <table class="center">
                                         <tr>
                                             <th>Start</th>
@@ -464,16 +474,19 @@ if ($conn->connect_error) {
                                         <label id="grade"><bold> Grade </bold></label>
                                         </br></br>
                                         
-                                        <h4><bold> Feedback </bold></h4>
+                                        <h4><bold>Summative Feedback </bold></h4>
                                         <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
-                                            
+                                        
+                                        <h4><bold>Formative Feedback</bold></h4>
+                                        <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </form>
                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Confirm</span></button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
                         </div>
                     </div>
                 </div>
@@ -503,56 +516,55 @@ if ($conn->connect_error) {
                             </tr>
                         </table>
                                 
-<!--                        <div class="row">
-                            <div class="column">
-                                <div class="card">
-                                    <div class="container">
-                                        <img class="updateoverlayhide" src="images/Student/reward2.png" alt="reward2">
-                                        <img class="updateoverlay" style="right: 76%;" src="images/Student/reward2Turn.gif" alt=""/>
-                                    </div>
-                                    <h1>Price</h1>
-                                    </br>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="card">
-                                    <div class="container">
-                                        <img class="updateoverlayhide" src="images/Student/reward3.png" alt=""/>
-                                        <img class="updateoverlay" style="right: 42%;" src="images/Student/reward3Turn.gif" alt="reward3">
-                                    </div>
-                                    <h1>Medal</h1>
-                                    </br>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="card">
-                                    <div class="container">
-                                        <img class="updateoverlayhide" src="images/Student/reward1.png" alt="reward1">
-                                        <img class="updateoverlay" src="images/Student/reward1Turn.gif" alt="reward3">
-                                    </div>
-                                    <h1>Trophy</h1>
-                                    </br>
-                                </div>
-                            </div>
-                        </div>-->
-<!--                        <form action="process_createCentre.php" method="POST">
-                            <div class="modal-body ">
-                                <div class="row">
-                                    <div>
-                                        <h4><bold> Grade </bold></h4>
-                                        <label id="grade"><bold> Grade </bold></label>
-                                        </br></br>
-                                        
-                                        <h4><bold> Feedback </bold></h4>
-                                        <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
-                                            
-                                    </div>
-                                </div>
-                            </div>
-                        </form>-->
-                       
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Confirm</span></button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="vformative" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" id="box">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <bold><h4 class="modal-title" name="" id="myModalLabel" value="My">Formative Feedback</h4><bold>  
+                        </div>
+                        <!--<label id='vmid'></label>-->
+                        <?php
+                            $sql2 = "SELECT * FROM sql1902664clj.feedback where gradeID is null and moduleid =".$session['formativeID']."";
+
+                                $result2 = $conn->query($sql2);
+                                $count = 0;
+                                $SN =1;
+                                if ( $result2->num_rows > 0 ) {
+                                    ?>
+                                    <table class="center">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                                <?php
+                                    foreach ($result2 as $row2) {
+                                        echo "<tr>
+                                                <td>
+                                                    ".$SN.".  
+                                                </td>
+                                                <td>
+                                                    ".$row2["fText"]."
+                                                </td>
+                                            </tr>";   
+                                        $SN++;
+                                    }
+                                    ?>
+                                    </table>
+                                    <?php
+                                }                                              
+                        ?>
+                        
+                                
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
                         </div>
                     </div>
                 </div>
@@ -582,6 +594,11 @@ if ($conn->connect_error) {
                 
                 $('#mgtbadges').on('show.bs.modal', function(e) {
                     
+                });
+                
+                $('#vformative').on('show.bs.modal', function(e) {
+//                    var mID = $(e.relatedTarget).data('mid');
+//                    document.getElementById("vmid").innerHTML = mID;
                 });
                 
                 function btnreward1() {
@@ -655,6 +672,7 @@ if ($conn->connect_error) {
 
                 
                 function openCity(evt, cityName) {
+                    
                   var i, tabcontent, tablinks;
                   tabcontent = document.getElementsByClassName("tabcontent");
                   for (i = 0; i < tabcontent.length; i++) {
