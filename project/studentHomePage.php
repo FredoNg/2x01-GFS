@@ -208,11 +208,11 @@ if ($conn->connect_error) {
                         <img src="images/Student/Female.jpg" alt="Avatar" class="image" style="width:100%">
                             <div class="middle">
                                 <div class="middle">
-                                    <img class="middle" src="images/Student/anonymous-mask.gif" alt=""/> 
-                                    <img class="middle" src="images/Student/ProjoctManagement.gif" alt=""/>
-                                    <img class="middle" src="images/Student/2901-Male.gif" alt=""/>
-                                    <img class="middle" src="images/Student/ethernet.gif" alt=""/>
-                                    <img class="middle" src="images/Student/embedded.gif" alt=""/>
+                                    <img class="middle" id="gif5" src="images/Student/anonymous-mask.gif" alt=""/> 
+                                    <img class="middle" id="gif1" src="images/Student/ProjoctManagement.gif" alt=""/>
+                                    <img class="middle" id="gif2" src="images/Student/2901-Male.gif" alt=""/>
+                                    <img class="middle" id="gif3" src="images/Student/ethernet.gif" alt=""/>
+                                    <img class="middle" id="gif4"src="images/Student/embedded.gif" alt=""/>
                                     <!--<img class="middle" src="images/Student/1.gif" alt=""/>-->
                                     <!--<img class="text" src="images/Student/anonymous-mask.gif" alt=""/>-->
                                     <img id="reward1" class="middle updateoverlayhide" src="images/Student/reward1.png" style="margin-left: 300px; padding-bottom: 200px;" alt=""/>
@@ -349,8 +349,7 @@ if ($conn->connect_error) {
                             <tr>
                                 <td>
                                     <button type="button" class="updatebtn" title="Update Details">
-                                        <img class="updateoverlayhide" src="images/Progress Bar/biggreencicle.gif" alt=""/>
-                                        <img class="updateoverlay" src="images/Progress Bar/biggreencicleTurn.gif" alt=""/>
+                                        <img class="" src="images/Progress Bar/biggreencicle.gif" alt=""/>
                                     </button>
                                 </td>
                                 <td>
@@ -570,6 +569,15 @@ if ($conn->connect_error) {
                     $('#message').fadeIn('slow', function(){
                        $('#message').delay(5000).fadeOut(); 
                     });
+                    $('#gif1').delay(5000).fadein('slow', function(){
+                        $('#gif2').delay(5000).fadein();
+                        $('#gif3').delay(5000).fadein();
+                        $('#gif4').delay(5000).fadein();
+                        $('#gif1').delay(5000).fadein();
+                        $('#gif5').delay(5000).fadein();
+                    });
+                   
+                   
                 });
                 
                 $('#mgtbadges').on('show.bs.modal', function(e) {
