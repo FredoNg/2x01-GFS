@@ -181,6 +181,12 @@ if ($conn->connect_error) {
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Paris')">ICT 1002</button>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Tokyo')">Tokyo</button>
                         <div style="margin-top:30px;">
+                            <!--<a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">View Badges</a>-->
+                            <button class="btn btn-danger btn-lg btn-block test"  data-toggle='modal' data-target='#mgtbadges' class='btn btn-default'>
+                                View Badges
+                            </button>
+                        </div>
+                        <div style="margin-top:30px;">
                             <a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">Shop</a>
                         </div>
 
@@ -209,6 +215,13 @@ if ($conn->connect_error) {
                                     <img class="middle" src="images/Student/embedded.gif" alt=""/>
                                     <!--<img class="middle" src="images/Student/1.gif" alt=""/>-->
                                     <!--<img class="text" src="images/Student/anonymous-mask.gif" alt=""/>-->
+                                    <img id="reward1" class="middle updateoverlayhide" src="images/Student/reward1.png" style="margin-left: 300px; padding-bottom: 200px;" alt=""/>
+
+                                    <img id="reward2" class="middle updateoverlayhide" src="images/Student/reward2.png" style="margin-left: 300px;" alt=""/>
+
+                                    <img id="reward3" class="middle updateoverlayhide" src="images/Student/reward3.png" style="margin-left: 300px; padding-top: 200px;" alt=""/>
+
+
                                 </div>
                             </div>
                         </div
@@ -444,6 +457,85 @@ if ($conn->connect_error) {
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="mgtbadges" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" id="box">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <bold><h4 class="modal-title" name="" id="myModalLabel" value="My Badges">My Badges</h4><bold>  
+                        </div>
+                        <table style="width: 100%; margin-left:5%;">
+                            <tr>
+                                <td>
+                                    <img class="updateoverlayhide" src="images/Student/reward1.png" alt="reward2">
+                                    <button id='btn1' onclick="btnreward1()">Display</button>
+                                </td>
+                                <td>
+                                    <img class="updateoverlayhide" src="images/Student/reward2.png" alt="reward2">
+                                    <button id='btn2' onclick="btnreward2()">Display</button>
+                                </td>
+                                <td>
+                                    <img class="updateoverlayhide" src="images/Student/reward3.png" alt="reward2">
+                                    <button id='btn3' onclick="btnreward3()">Display</button>
+                                </td>
+                            </tr>
+                        </table>
+                                
+<!--                        <div class="row">
+                            <div class="column">
+                                <div class="card">
+                                    <div class="container">
+                                        <img class="updateoverlayhide" src="images/Student/reward2.png" alt="reward2">
+                                        <img class="updateoverlay" style="right: 76%;" src="images/Student/reward2Turn.gif" alt=""/>
+                                    </div>
+                                    <h1>Price</h1>
+                                    </br>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="card">
+                                    <div class="container">
+                                        <img class="updateoverlayhide" src="images/Student/reward3.png" alt=""/>
+                                        <img class="updateoverlay" style="right: 42%;" src="images/Student/reward3Turn.gif" alt="reward3">
+                                    </div>
+                                    <h1>Medal</h1>
+                                    </br>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="card">
+                                    <div class="container">
+                                        <img class="updateoverlayhide" src="images/Student/reward1.png" alt="reward1">
+                                        <img class="updateoverlay" src="images/Student/reward1Turn.gif" alt="reward3">
+                                    </div>
+                                    <h1>Trophy</h1>
+                                    </br>
+                                </div>
+                            </div>
+                        </div>-->
+<!--                        <form action="process_createCentre.php" method="POST">
+                            <div class="modal-body ">
+                                <div class="row">
+                                    <div>
+                                        <h4><bold> Grade </bold></h4>
+                                        <label id="grade"><bold> Grade </bold></label>
+                                        </br></br>
+                                        
+                                        <h4><bold> Feedback </bold></h4>
+                                        <p id="Feedback"><bold>Your team did a very good job in your M4. However there some small part your have to change, but overall this team did very good.</bold></p>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </form>-->
+                       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span>Confirm</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
            
             <br>
             <!--Footer-->
@@ -458,6 +550,34 @@ if ($conn->connect_error) {
                     });
                 });
                 
+                $('#mgtbadges').on('show.bs.modal', function(e) {
+                    
+                });
+                
+                function btnreward1() {
+                    var x = document.getElementById("reward1");
+                    if (x.style.display == "none"){
+                        x.style.display = "block";
+                    } else {
+                        x.style.display = "none";
+                    }
+                }
+                function btnreward2() {
+                    var x = document.getElementById("reward2");
+                    if (x.style.display == "none"){
+                        x.style.display = "block";
+                    } else {
+                        x.style.display = "none";
+                    }
+                }
+                function btnreward3() {
+                    var x = document.getElementById("reward3");
+                    if (x.style.display == "none"){
+                        x.style.display = "block";
+                    } else {
+                        x.style.display = "none";
+                    }
+                }
                 
                 $('#takeaction').on('show.bs.modal', function(e) {
                    
