@@ -285,6 +285,16 @@ if ($conn->connect_error) {
                                                                     </button>
                                                                </td>");
                                                     }
+                                                    if (strpos($row2['aName'], "Assignment") !== false){
+                                                        echo ("<td>
+                                                                    <button type='button' class='updatebtn' data-toggle='modal' data-target='#takeaction' class='btn btn-default' 
+                                                                    data-userid='".$row2['aID']."' data-grade='".$row2['grade']."' data-aname='".$row2['aName']. "
+                                                                        ' data-feedback='".$row2['ftext']. "'>
+                                                                        <img class='updateoverlayhide' src='images/Progress Bar/biggreencicle.gif'/>
+                                                                        <img class='updateoverlay' src='images/Progress Bar/biggreencicleTurn.gif'/>
+                                                                    </button>
+                                                               </td>");
+                                                    }
                                                     $count++;
                                                 }
                                                 for ($count; $count < count($greycircle); $count++){
