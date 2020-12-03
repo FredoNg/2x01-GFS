@@ -343,6 +343,8 @@ if ($conn->connect_error) {
                                 <th>Quiz 1</th>
                                 <th>Quiz 2</th>
                                 <th>Quiz 3</th>
+                                <th>Assignment 1</th>
+                                <th>Quiz 4</th>
                             </tr>
                             <tr>
                                 <td>
@@ -377,6 +379,16 @@ if ($conn->connect_error) {
                                         <img class='updateoverlay' src='images/Progress Bar/smallgreencircleTurn.gif'/>
                                     </button>
                                 </td>  
+                                <td>
+                                    <button type='button' class='updatebtn' class='btn btn-default' disabled>
+                                        <img src='images/Progress Bar/biggreycircle.gif'/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type='button' class='updatebtn' class='btn btn-default' disabled>
+                                        <img src='images/Progress Bar/smallgreycircle.gif'/>
+                                    </button>
+                                </td>
                             </tr>
                         </table>
                     </div>
