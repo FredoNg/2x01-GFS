@@ -103,9 +103,20 @@ if ($conn->connect_error) {
             include 'nav.inc.php';
             ?>
             <!--Navigation End  -->
+             <?php
+                $sql = "SELECT SUM(points) FROM sql1902664clj.studentpoints where studentID = 2;";
+                $result = $conn->query($sql);
+                if ( $result->num_rows > 0 ) {
+                    foreach ($result as $row){ ?>
+           
             <h1 style="text-align: center">SHOP NOW EXCHANGE YOUR POINTS</h1>
-                <h3 style="text-align: center"> You currently have: 1000 points !</h3>
+                <h3 style="text-align: center"> You currently have: <?php echo $row["SUM(points)"] ?> points !</h3>
             </br>
+             <?php
+                        
+                    }
+                }
+            ?>
             <div class="row">
                 <div class="column">
                     <div class="card">
