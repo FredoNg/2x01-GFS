@@ -6,7 +6,7 @@ require_once('../protected/config.php');
  * and open the template in the editor.
  */
 $feedbackText = $_POST["feedback"];
-
+$feedbackTextDDL = $_POST["feedbackDDL"];
 $studentInfo = explode("_", $_POST['student']);
 $studentID = $studentInfo[0];
 $studentName = $studentInfo[1];
@@ -56,7 +56,12 @@ $moduleID = $_SESSION['currentModuleID'];
                 die("Connection failed: " . $conn->connect_error);
             }
             
-            $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID) VALUES ('$feedbackText', NOW(), '$moduleID', '$studentID')";
+            if ($_POST["feedbackDDL"] == "none")  //use textbox input
+                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID) VALUES ('$feedbackText', NOW(), '$moduleID', '$studentID')";
+            else                                //use DDL inpunt
+                $sql = "INSERT INTO Feedback(fText, givenDate, moduleID, studentID) VALUES ('$feedbackTextDDL', NOW(), '$moduleID', '$studentID')";
+            
+            
 
             if ($conn->query($sql) === TRUE) {
                 echo "Feedback given for student '$studentName'";

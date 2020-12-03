@@ -58,36 +58,57 @@ $moduleID = $_SESSION['currentModuleID'];
                 die("Connection failed: " . $conn->connect_error);
             }
             
-            $sql = "SELECT SUM(aWeightage) FROM Assessments WHERE mID = '$moduleID'";
-            //check if weightages are cool. if not, return to previous.
-            $result =  mysqli_query($conn, $sql);
-            $row = mysqli_fetch_array($result);
-            $sumWeightage = $row["SUM(aWeightage)"] + $weightage;
-            $remainder = ($sumWeightage - 100);
-            
-            if ( $remainder < 0)
+            if ($weightage == "")
             {
-                //difference more than 0, thus good. allow insertion.
-                if ($parentID == "0")   //no parent assessment
-                $sql = "INSERT INTO ASSESSMENTS (mID, aName, aWeightage, endDate) VALUES ('$moduleID', '$name', '$weightage', NULL)";
-            
-                else                    //with parent assessment
-                    $sql = "INSERT INTO ASSESSMENTS (mID, aParentID, aName, aWeightage, endDate) VALUES ('$moduleID', '$parentID', '$name', '$weightage', NULL)";
-
-                // with a parent
+                //assessment intended to be a parent. just add with no weightage.
+                $sql = "INSERT INTO ASSESSMENTS (mID, aName, endDate) VALUES ('$moduleID', '$name', NULL)";
                 if ($conn->query($sql) === TRUE) {
-                    echo "Assessment ".$name." created";
+                    echo "Parent assessment ".$name." created";
                 } else {
-                    echo "Error: " . $sql . " Unable to create Assessment '$name'"."<br>" . $conn->error;
+                    echo "Error: " . $sql . " Unable to create parent assessment '$name'"."<br>" . $conn->error;
                     }
             }
             
             else
             {
-                //total weightage will exceed 100 if this assessment is added. reject.
-                echo "Error! Unable to create Assessment '$name'"."!<br>";
-                echo "Total weightage exceeds 100 by $remainder"."!<br>";
+                //not intended to be a parent assessment.
+                //check weightage if valid
+                
+                $sql = "SELECT SUM(aWeightage) FROM Assessments WHERE mID = '$moduleID'";
+                //check if weightages are cool. if not, return to previous.
+                $result =  mysqli_query($conn, $sql);
+                $row = mysqli_fetch_array($result);
+                $sumWeightage = $row["SUM(aWeightage)"] + $weightage;
+                $remainder = ($sumWeightage - 100);
+
+                if ( $remainder <= 0)
+                {
+                    //difference more thanor equals to 0, thus good. allow insertion.
+                    if ($parentID == "0")   //no parent assessment, just an assessment.
+                    $sql = "INSERT INTO ASSESSMENTS (mID, aName, aWeightage, endDate) VALUES ('$moduleID', '$name', '$weightage', NULL)";
+
+                    else                    //with parent assessment
+                        $sql = "INSERT INTO ASSESSMENTS (mID, aParentID, aName, aWeightage, endDate) VALUES ('$moduleID', '$parentID', '$name', '$weightage', NULL)";
+
+                    // with a parent
+                    if ($conn->query($sql) === TRUE) {
+                        echo "Assessment ".$name." created";
+                    } else {
+                        echo "Error: " . $sql . " Unable to create Assessment '$name'"."<br>" . $conn->error;
+                        }
+                }
+
+                else
+                {
+                    //total weightage will exceed 100 if this assessment is added. reject.
+                    echo "Error! Unable to create Assessment '$name'"."!<br>";
+                    echo "Total weightage exceeds 100 by $remainder"."!<br>";
+                }
+                
             }
+            
+            
+            
             
             
                     

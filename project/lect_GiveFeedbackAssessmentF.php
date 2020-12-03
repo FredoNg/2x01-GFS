@@ -41,14 +41,14 @@ $moduleID = $_SESSION['currentModuleID'];
              <br>
             
             <?php
-            //acquire list of assessments, put in ddl
+            //acquire list of non-parent assessments, put in ddl
                     $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                     // Check connection
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
 
-                    $sql = "SELECT * FROM Assessments WHERE mID = '$moduleID'";
+                    $sql = "SELECT * FROM Assessments WHERE mID = '$moduleID' AND aWeightage > 0";
                     $result1 = mysqli_query($conn, $sql);
 
             //acquire list of students, put in ddl
@@ -95,8 +95,17 @@ $moduleID = $_SESSION['currentModuleID'];
                 ?>
             </select>
             <br>
+            Enter feedback:<br>
             <textarea name="feedback" rows="3" cols="40"> </textarea>
             <br>
+            Alternatively, select from the following preset feedback:<br>
+            <select id="feedbackDDL" name="feedbackDDL" style="font-family:sans-serif; font-size: 18px">
+                <option value = "none">-</option>
+                <option value = "Good job!">Good Job!</option>
+                <option value = "Good effort!">Good effort!</option>
+                <option value = "Good try.">Good try.</option>
+            </select>
+            
             <button type="submit" value="Submit">Give Module Feedback (Individual)</button>
             </form> 
              
