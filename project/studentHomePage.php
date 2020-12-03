@@ -157,32 +157,6 @@ if ($conn->connect_error) {
             include 'nav.inc.php';
             ?>
             <!--Navigation End  -->
-            <!-- Start Carousel --> 
-            <div id="myCarousel" class="carousel slide">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-
-                </ol>
-                <!--End Indicators-->
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" id="carousel1" >
-                    <div class="item active">
-                    </div>
-                    <div class="item">
-                    </div>
-                </div>
-                <!-- End Slider Wrap-->
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev" aria-label="Christmas Banner">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next" aria-label="Year End Banner">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-            <!-- End Carousel-->
 
             <!--Shop Now-->
             <div class="container-fluid" id="shopnow">

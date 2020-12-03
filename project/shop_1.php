@@ -35,8 +35,8 @@ if ($conn->connect_error) {
         .column {
             float: left;
             width: 33.33%;
-            padding: 10px;
-            height: 300px; /* Should be removed. Only for demonstration */
+            padding: 30px;
+            height: 10px; /* Should be removed. Only for demonstration */
         }
 
         /* Clear floats after the columns */
@@ -86,6 +86,7 @@ if ($conn->connect_error) {
             right: 7%;
             color: white;
             text-align: center;
+            align-content: center;
         }
 
         .container:hover .updateoverlay {
@@ -103,8 +104,8 @@ if ($conn->connect_error) {
             include 'nav.inc.php';
             ?>
             <!--Navigation End  -->
-            <h1 style="text-align: center">SHOP NOW EXCHANGE YOUR POINTS</h1>
-                <h3 style="text-align: center"> You currently have: 1000 points !</h3>
+            <h1 style="text-align: center">BADGES & POINTS </h1>
+            <h3 style="text-align: center"> Here Are Your Current Badges And Remaining Points</h3>
             </br>
             <div class="row">
                 <div class="column">
@@ -114,9 +115,7 @@ if ($conn->connect_error) {
                             <img class="updateoverlay" style="right: 76%;" src="images/Student/reward2Turn.gif" alt=""/>
                         </div>
                         <h1>Price</h1>
-                        <p class="price">200 points</p>
-                        <p>Exchange your 200 points for Price</p>
-                        <p><button  type="submit" onclick="clicked();">Exchange</button></p>
+                        </br>
                     </div>
                 </div>
                 <div class="column">
@@ -126,9 +125,7 @@ if ($conn->connect_error) {
                             <img class="updateoverlay" style="right: 42%;" src="images/Student/reward3Turn.gif" alt="reward3">
                         </div>
                         <h1>Medal</h1>
-                        <p class="price">500 points</p>
-                        <p>Exchange your 500 points for Medal</p>
-                        <p><button  type="submit" onclick="clicked();">Exchange</button></p>
+                        </br>
                     </div>
                 </div>
                 <div class="column">
@@ -138,29 +135,22 @@ if ($conn->connect_error) {
                             <img class="updateoverlay" src="images/Student/reward1Turn.gif" alt="reward3">
                         </div>
                         <h1>Trophy</h1>
-                        <p class="price">700 points</p>
-                        <p>Exchange your 700 points for Trophy</p>
-                        <p><button  type="submit" onclick="clicked();">Exchange</button></p>
+                        </br>
                     </div>
-                    </br>
-                     <div style="margin-top:30px; width: 40%; margin-left: 165px;">
-                         <a href="studentHomePage.php" class="btn btn-danger btn-lg btn-block test" role="button">Back to Homepage</a>
-                    </div>
-                    </br>
                 </div>
             </div>
 
             <script type="text/javascript">
                 function clicked() {
-                    if (confirm('Exchange Success!' )) {
+                    if (confirm('Exchange Success!')) {
                         yourformelement.submit();
                     } else {
                         return false;
                     }
                 }
+
             </script>
 
         </main>
     </body>
-
 </html>
