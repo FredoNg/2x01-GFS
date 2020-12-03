@@ -183,8 +183,6 @@ if ($conn->connect_error) {
                         }
                         ?>
                         <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'London')">ICT 2902</button>
-                        <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Paris')">ICT 1002</button>
-                        <button class="tablinks" style="width: 100%; margin-bottom: 15px;" onclick="openCity(event, 'Tokyo')">Tokyo</button>
                         <div style="margin-top:30px;">
                             <!--<a href="shop.php" class="btn btn-danger btn-lg btn-block test"  role="button">View Badges</a>-->
                             <button class="btn btn-danger btn-lg btn-block test"  data-toggle='modal' data-target='#mgtbadges' class='btn btn-default'>
